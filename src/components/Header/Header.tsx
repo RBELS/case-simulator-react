@@ -21,7 +21,7 @@ const useStyles = makeStyles({
         minWidth: 70,
         height: 70,
         margin: 5,
-        borderRadius: "40%",
+        borderRadius: "10%",
         backgroundColor: "white"
     },
     menu: {
@@ -31,15 +31,19 @@ const useStyles = makeStyles({
 
 const Header = () => {
     const classes = useStyles();
-    const [ opened, setOpened ] = useState(false);
-    const auth = false;
+    const [ opened, setOpened ] = useState<boolean>(false);
+    const [ anchorEl, setAnchorEl ] = useState<null | HTMLElement>(null);
+
+    const auth = true;
 
     const handleClose = () => {
         setOpened(false);
+        setAnchorEl(null);
     }
 
-    const handleOpen = (e: MouseEvent<HTMLElement>) => {
+    const handleOpen = (event: MouseEvent<HTMLElement>) => {
         setOpened(true);
+        setAnchorEl(event.currentTarget);
     }
 
     return <AppBar style={{ height: 100 }} position="static">
@@ -75,22 +79,23 @@ const Header = () => {
 
             <Menu
                 id="menu-appbar"
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
                 }}
                 open={opened}
                 onClose={handleClose}
                 className={classes.menu}
+                anchorEl={anchorEl}
             >
-                {auth && <>
+                {auth && <div>
                     <MenuItem >Profile</MenuItem>
                     <MenuItem >Log Out</MenuItem>
-                </>}
+                </div>}
 
-                {!auth && <>
+                {!auth && <div>
                     <MenuItem>Sign Up</MenuItem>
-                </>}
+                </div>}
                 
             </Menu>
         </Toolbar>

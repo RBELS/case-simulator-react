@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Typography, Card, CardContent, CardActions, Button, CardMedia, CardActionArea } from '@material-ui/core';
 import { makeStyles } from "@material-ui/styles";
+import { NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
     case: {
@@ -17,8 +18,9 @@ const useStyles = makeStyles(theme => ({
     },
     media: {
         height: 125,
-        width:150,
+        width:160,
         borderRadius:10,
+        marginTop: 5,
         backgroundColor: "lightgrey"
     },
     area: {
@@ -29,9 +31,8 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: "#F3F3F3",
         "&:hover": {
             backgroundColor: "#E5E5E5"
-        }
-    }
-    
+        },
+    },
 }));
 
 const Case = () => {
@@ -52,7 +53,9 @@ const Case = () => {
 
             </CardActionArea>
             <CardActions>
-                <Button className={classes.bt} size="small">Open</Button>
+                <NavLink style={{ textDecoration: "none" }} to={`/case/0`}>
+                    <Button className={classes.bt} size="small" >Open</Button>
+                </NavLink>
             </CardActions>
         </Card>
     </Grid>
