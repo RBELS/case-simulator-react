@@ -1,39 +1,44 @@
-import React from 'react';
-import { Grid, Paper } from '@material-ui/core';
+import React, { useEffect } from 'react';
+import { Grid } from '@material-ui/core';
 import { makeStyles } from "@material-ui/styles";
 import Case from './Case/Case';
+import { connect } from 'react-redux';
+import { RootState } from '../../store/store';
+import { setCasesTC } from '../../store/reducers/mainContentReducer';
+import { CaseI } from '../../store/types/types';
 
 const useStyles = makeStyles({
     container: {
         marginTop: 0
     },
-    paper: {
-
-    },
-    side: {
-
-    },
-    center: {
-        
-    }
 });
 
-const Content = () => {
+interface PropsI {
+    cases: Array<CaseI>,
+    setCases: () => void
+}
+
+const Content = ({ cases, setCases }: PropsI) => {
     const classes = useStyles();
 
-    return <Grid className={classes.container} container>
-        <Grid className={classes.side} item xl={2}  md={1} sm={1} xs={false}></Grid>{/*sidebar*/}
+    useEffect(() => {
+        console.log("effect");
+        setCases();
+    }, []);
 
-        <Grid className={classes.center} item xl={8}  md={10} sm={10} xs={12}>
-            <Case />
-            <Case />
-            <Case />
-            <Case />
-            <Case />
+    return <Grid className={classes.container} container>
+        <Grid item xl={2}  md={1} sm={1} xs={false}></Grid>{/*sidebar*/}
+
+        <Grid item xl={8}  md={10} sm={10} xs={12}>
+            {cases.map((currentCase) => <Case {...currentCase} />)}
         </Grid>
 
-        <Grid className={classes.side} item xl={2} md={1} sm={1} xs={false}></Grid>{/*sidebar*/}
+        <Grid item xl={2} md={1} sm={1} xs={false}></Grid>{/*sidebar*/}
     </Grid>
 }
 
-export default Content
+const mapStateToProps = (state: RootState) => ({
+    cases: state.main.cases
+});
+
+export default connect(mapStateToProps,{ setCases: setCasesTC })(Content);
