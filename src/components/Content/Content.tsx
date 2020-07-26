@@ -22,7 +22,6 @@ const Content = ({ cases, setCases }: PropsI) => {
     const classes = useStyles();
 
     useEffect(() => {
-        console.log("effect");
         setCases();
     }, []);
 
@@ -30,7 +29,7 @@ const Content = ({ cases, setCases }: PropsI) => {
         <Grid item xl={2}  md={1} sm={1} xs={false}></Grid>{/*sidebar*/}
 
         <Grid item xl={8}  md={10} sm={10} xs={12}>
-            {cases.map((currentCase) => <Case {...currentCase} />)}
+            {cases.map((currentCase) => <Case {...currentCase} key={currentCase._id} />)}
         </Grid>
 
         <Grid item xl={2} md={1} sm={1} xs={false}></Grid>{/*sidebar*/}

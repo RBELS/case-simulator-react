@@ -2,6 +2,7 @@ import React, { useState, MouseEvent } from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem } from '@material-ui/core';
 import { AccountCircle } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/styles";
+import { NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles({
     toolBar: {
@@ -11,7 +12,7 @@ const useStyles = makeStyles({
     },
     panel: {
         height: 80,
-        width: "80%",
+        width: "85%",
         display: "flex",
         overflow: "hidden"
         // backgroundColor: "black"
@@ -48,9 +49,11 @@ const Header = () => {
 
     return <AppBar style={{ height: 100 }} position="static">
         <Toolbar className={classes.toolBar}>
-            {/* <Typography variant="h6">
-                Case Simulator
-            </Typography> */}
+            <NavLink to="/" style={{ textDecoration: "none", color: '#fff' }}>
+                <Typography variant="h6">
+                    Case Simulator
+                </Typography>
+            </NavLink>
             <div className={classes.panel}>
                 <div className={classes.testItem}></div>
                 <div className={classes.testItem}></div>
@@ -70,7 +73,8 @@ const Header = () => {
                 <div className={classes.testItem}></div>
                 <div className={classes.testItem}></div>
                 <div className={classes.testItem}></div>
-                {/* <div className={classes.testItem}></div> */}
+                <div className={classes.testItem}></div>
+                <div className={classes.testItem}></div>
             </div>
 
             <IconButton onClick={handleOpen} aria-controls="menu-appbar" >

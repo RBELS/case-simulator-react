@@ -3,11 +3,13 @@ import thunkMiddleware from "redux-thunk";
 import { reducer as formReducer } from "redux-form";
 import { composeWithDevTools } from "redux-devtools-extension";
 import mainContentReducer from "./reducers/mainContentReducer";
+import caseContentReducer from "./reducers/caseContentReducer";
 
 const reducers = combineReducers({
     form: formReducer,
-    main: mainContentReducer
-});//add reducers here
+    main: mainContentReducer,
+    caseContent: caseContentReducer
+});
 
 const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunkMiddleware)));
 

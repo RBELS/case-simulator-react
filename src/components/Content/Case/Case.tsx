@@ -49,13 +49,13 @@ const Case = ({ avatar, id, name, price }: CaseI) => {
                 />
 
                 <CardContent>
-                <Typography variant="h6">{name}</Typography>
+                    <Typography variant="h6">{name}</Typography>
                     <Typography variant="body2" component="h2">{price} bucks</Typography>
                 </CardContent>
 
             </CardActionArea>
             <CardActions>
-                <NavLink style={{ textDecoration: "none" }} to={`/case/0`}>
+                <NavLink style={{ textDecoration: "none" }} to={`/case/${id}`}>
                     <Button className={classes.bt} size="small" >Open</Button>
                 </NavLink>
             </CardActions>
