@@ -35,7 +35,7 @@ const Header = () => {
     const [ opened, setOpened ] = useState<boolean>(false);
     const [ anchorEl, setAnchorEl ] = useState<null | HTMLElement>(null);
 
-    const auth = true;
+    const auth = false;
 
     const handleClose = () => {
         setOpened(false);
@@ -98,7 +98,9 @@ const Header = () => {
                 </div>}
 
                 {!auth && <div>
-                    <MenuItem>Sign Up</MenuItem>
+                    <NavLink style={{ textDecoration: "none", color: "#000" }} to="/login">
+                        <MenuItem onClick={handleClose}>Sign Up</MenuItem>
+                    </NavLink>
                 </div>}
                 
             </Menu>

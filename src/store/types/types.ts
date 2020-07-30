@@ -25,7 +25,7 @@ export interface CasesStateI {
 
 export interface CaseContentStateI {
     id: number | undefined
-    name: string | undefined
+    name: string 
     avatar: string
     price: number | undefined
     items: Array<CaseContentItemI>

@@ -4,6 +4,7 @@ import Header from './components/Header/Header';
 import Content from './components/Content/Content';
 import { Switch, Route } from "react-router-dom";
 import CaseContent from './components/CaseContent/CaseContent';
+import LoginPage from './components/LoginPage/LoginPage';
 
 function App() {
   return <>
@@ -12,6 +13,7 @@ function App() {
     <Switch>
       <Route exact path="/" render={() => <Content />} />
       <Route path="/case/:caseid?" render={() => <CaseContent />} />
+      <Route exact path="/login" render={() => <LoginPage />} />
     </Switch>
   </>
 }
