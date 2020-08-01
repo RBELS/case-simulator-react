@@ -13,6 +13,7 @@ export const getCasesAPI = (): Promise<Array<CaseI>> => instance.get(`cases`).th
 export const getCaseContentAPI = (caseid: string): Promise<CaseContentStateI>  => instance.get(`cases/${caseid}`).then(res => res.data);
 export const authAPI = {
     login: (username: string, password: string): Promise<StatusI> => instance.post(`auth/login`, { username, password }).then(res => res.data),
-    amLogged: (): Promise<StatusI> => instance.get(`auth/amlogged`).then(res => res.data),
-    getUsername: (): Promise<GetUsernameStatusI> => instance.get(`profile/username`).then(res => res.data)
+    amLogged: (): Promise<StatusI> => instance.get(`auth/login`).then(res => res.data),
+    getUsername: (): Promise<GetUsernameStatusI> => instance.get(`profile/username`).then(res => res.data),
+    logout: (): AxiosPromise => instance.delete(`auth/login`)
 };

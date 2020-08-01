@@ -40,6 +40,15 @@ export const setUsernameTC = (): ThunkAction<void, RootState, unknown, Action<st
     }
 }
 
+export const logOutTC = (): ThunkAction<void, RootState, unknown, Action<string>> => async dispatch => {
+    try {
+        const res = await authAPI.logout();
+        dispatch(setLoggedAC(false));
+    } catch (error) {
+        serverErrorAlert();
+    }
+}
+
 //add ts here
 export const amLoggedTC = () => async (dispatch) => {
     return authAPI.amLogged().then(res => {
