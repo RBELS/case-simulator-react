@@ -4,8 +4,8 @@ import { makeStyles } from "@material-ui/styles";
 import Case from './Case/Case';
 import { connect } from 'react-redux';
 import { RootState } from '../../store/store';
-import { setCasesTC } from '../../store/reducers/mainContentReducer';
-import { CaseI } from '../../store/types/types';
+import { CaseI } from '../../store/reducers/mainContentReducer/mainContentTypes';
+import { setCasesTC } from '../../store/reducers/mainContentReducer/mainContenActions';
 
 const useStyles = makeStyles({
     container: {

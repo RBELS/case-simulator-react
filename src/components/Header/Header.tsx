@@ -3,6 +3,10 @@ import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem } from '@materi
 import { AccountCircle } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/styles";
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { RootState } from '../../store/store';
+import IncognitoMenu from './IncognitoMenu/IncognitoMenu';
+import LoggedMenu from './LoggedMenu/LoggedMenu';
 
 const useStyles = makeStyles({
     toolBar: {
@@ -30,12 +34,14 @@ const useStyles = makeStyles({
     }
 });
 
-const Header = () => {
+interface PropsI {
+    logged: boolean
+}
+
+const Header = ({ logged }: PropsI) => {
     const classes = useStyles();
     const [ opened, setOpened ] = useState<boolean>(false);
     const [ anchorEl, setAnchorEl ] = useState<null | HTMLElement>(null);
-
-    const auth = false;
 
     const handleClose = () => {
         setOpened(false);
@@ -81,31 +87,23 @@ const Header = () => {
                 <AccountCircle fontSize="large" edgeMode="end"/>
             </IconButton>
 
-            <Menu
-                id="menu-appbar"
+            <Menu id="menu-appbar" open={opened} onClose={handleClose} className={classes.menu} anchorEl={anchorEl}
                 transformOrigin={{
                     vertical: 'top',
                     horizontal: 'right',
                 }}
-                open={opened}
-                onClose={handleClose}
-                className={classes.menu}
-                anchorEl={anchorEl}
             >
-                {auth && <div>
-                    <MenuItem >Profile</MenuItem>
-                    <MenuItem >Log Out</MenuItem>
-                </div>}
+                {logged && <LoggedMenu handleClose={handleClose} />}
 
-                {!auth && <div>
-                    <NavLink style={{ textDecoration: "none", color: "#000" }} to="/login">
-                        <MenuItem onClick={handleClose}>Sign Up</MenuItem>
-                    </NavLink>
-                </div>}
+                {!logged && <IncognitoMenu handleClose={handleClose} />}
                 
             </Menu>
         </Toolbar>
     </AppBar>
 }
 
-export default Header
+const mapStateToProps = (state: RootState) => ({
+    logged: state.auth.logged
+});
+
+export default connect(mapStateToProps)(Header)

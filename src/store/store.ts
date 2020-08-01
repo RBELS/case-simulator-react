@@ -2,13 +2,17 @@ import { combineReducers, createStore, applyMiddleware } from "redux";
 import thunkMiddleware from "redux-thunk";
 import { reducer as formReducer } from "redux-form";
 import { composeWithDevTools } from "redux-devtools-extension";
-import mainContentReducer from "./reducers/mainContentReducer";
-import caseContentReducer from "./reducers/caseContentReducer";
+import mainContentReducer from "./reducers/mainContentReducer/mainContentReducer";
+import caseContentReducer from "./reducers/caseContentReducer/caseContentReducer";
+import authReducer from "./reducers/authReducer/authReducer";
+import appReducer from "./reducers/appReducer/appReducer";
 
 const reducers = combineReducers({
     form: formReducer,
     main: mainContentReducer,
-    caseContent: caseContentReducer
+    caseContent: caseContentReducer,
+    auth: authReducer,
+    app: appReducer
 });
 
 const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunkMiddleware)));

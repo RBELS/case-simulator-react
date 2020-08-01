@@ -7,5 +7,5 @@ export const minLength = (min: number) => (text:string): string => {
 }
 
 export const requiredField = (text: string): string => {
-    if(!text || text.length == 0) return 'This field os required.';
+    if(!text || text.length == 0) return 'This field is required.';
 }
