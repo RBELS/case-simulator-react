@@ -1,8 +1,8 @@
 import React from 'react';
 import { Card, CardActionArea, CardMedia, Grid, CardContent, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import { CaseContentItemI } from '../../../store/types/types';
 import { bgStyles } from "./Backgrounds";
+import { CaseContentItemI } from '../../../store/reducers/caseContentReducer/caseContentTypes';
 
 const useStyles = makeStyles({
     item: {

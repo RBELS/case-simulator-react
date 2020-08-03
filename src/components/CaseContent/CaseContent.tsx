@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Grid, Typography, CardActionArea, CardMedia, Button, Card, makeStyles } from '@material-ui/core';
@@ -7,6 +7,7 @@ import CaseItem from './CaseItem/CaseItem';
 import { CaseContentItemI } from '../../store/reducers/caseContentReducer/caseContentTypes';
 import { setCaseContentTC } from '../../store/reducers/caseContentReducer/caseContentActions';
 import LoadingComponent from '../LoadingComponent/LoadingComponent';
+import Roulette from './Roulette/Roulette';
 
 interface PropsI extends RouteComponentProps {
     match: {
@@ -33,6 +34,7 @@ const useStyles = makeStyles({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        padding: '0px 10px'
     },
     caseImg: {
         width: 256,
@@ -45,22 +47,26 @@ const useStyles = makeStyles({
     items: {
         margin: '2px auto'
     },
-    item: {
-        border: '1px solid black',
-        backgroundColor: 'white',
-        height: 156,
-        borderRadius: 40
-    },
     caseName: {
         fontWeight: 300
+    },
+    card: {
+        height: 200,
+        margin: '15px 0px'
     }
 });
 
 const CaseContent = ({ match: { params: { caseid } }, name, avatar, price, items, loading, setCaseContent }: PropsI) => {
     const classes = useStyles();
+    const [ opening, setOpening ] = useState(false);
+
     useEffect(() => {
         setCaseContent(caseid);
     }, []);
+
+    const handleOpen = () => {
+        setOpening(!opening);
+    }
 
 
     return loading ?
@@ -69,12 +75,16 @@ const CaseContent = ({ match: { params: { caseid } }, name, avatar, price, items
     <>
         <Grid item className={classes.main} xl={8} md={9} sm={10} xs={12} >
             <Typography className={classes.caseName} variant='h3' color='primary'>{name}</Typography>
-            <Card>
-                 <CardActionArea disableRipple>
-                     <CardMedia className={classes.caseImg} image={avatar}/>
-                 </CardActionArea>
+            {opening ?
+            <Roulette items={items} />
+            :
+            <Card className={classes.card}>
+                <CardActionArea disableRipple>
+                    <CardMedia className={classes.caseImg} image={avatar}/>
+                </CardActionArea>
             </Card>
-            <Button className={classes.openBt} variant='contained' color='primary' >Open: {price} bucks</Button>
+            }
+            <Button onClick={handleOpen} className={classes.openBt} variant='contained' color='primary' >Open: {price} bucks</Button>
         </Grid>
 
         <Grid container item className={classes.items} xl={8} md={9} sm={10} xs={12} >
