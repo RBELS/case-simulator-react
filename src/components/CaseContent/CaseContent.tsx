@@ -6,6 +6,7 @@ import { RootState } from '../../store/store';
 import CaseItem from './CaseItem/CaseItem';
 import { CaseContentItemI } from '../../store/reducers/caseContentReducer/caseContentTypes';
 import { setCaseContentTC } from '../../store/reducers/caseContentReducer/caseContentActions';
+import LoadingComponent from '../LoadingComponent/LoadingComponent';
 
 interface PropsI extends RouteComponentProps {
     match: {
@@ -14,6 +15,7 @@ interface PropsI extends RouteComponentProps {
         path: string
         url: string
     },
+    loading: boolean
     name: string
     avatar: string
     price: number
@@ -54,14 +56,17 @@ const useStyles = makeStyles({
     }
 });
 
-const CaseContent = ({ match: { params: { caseid } }, name, avatar, price, items, setCaseContent }: PropsI) => {
+const CaseContent = ({ match: { params: { caseid } }, name, avatar, price, items, loading, setCaseContent }: PropsI) => {
     const classes = useStyles();
     useEffect(() => {
         setCaseContent(caseid);
     }, []);
 
 
-    return <>
+    return loading ?
+    <LoadingComponent />
+    :
+    <>
         <Grid item className={classes.main} xl={8} md={9} sm={10} xs={12} >
             <Typography className={classes.caseName} variant='h3' color='primary'>{name}</Typography>
             <Card>
@@ -82,7 +87,8 @@ const mapStateToProps = (state: RootState) => ({
     name: state.caseContent.name,
     avatar: state.caseContent.avatar,
     price: state.caseContent.price,
-    items: state.caseContent.items
+    items: state.caseContent.items,
+    loading: state.caseContent.loading
 })
 
 export default withRouter(connect(mapStateToProps, { setCaseContent: setCaseContentTC })(CaseContent))

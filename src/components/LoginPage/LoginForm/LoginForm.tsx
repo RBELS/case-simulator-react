@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
 import { reduxForm, Field } from 'redux-form';
 import RenderTextField from './RenderField';
-import { maxLength, minLength, requiredField } from '../../../store/validators/loginFormValidators';
+import { maxLength, minLength, requiredField } from '../../../store/validators/FormValidators';
 
 const useStyles = makeStyles({
     form: {

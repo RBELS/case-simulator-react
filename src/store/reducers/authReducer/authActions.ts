@@ -13,14 +13,27 @@ export const setUsernameAC = (username: string): SetUsernameActionI => ({ type: 
 
 export const loginTC = (username: string, password: string): ThunkAction<void, RootState, unknown, Action<string>> => async dispatch => {
     try {
-        const  { success } = await authAPI.login(username, password);
+        const { success } = await authAPI.login(username, password);
         dispatch(reset('login'));
-        // dispatch(setLoggedAC(success));
         if(success) {
             dispatch(setLoggedAC(true));
         } else {
             dispatch(setLoggedAC(false));
             dispatch(stopSubmit('login', { _error: 'Wrong input' }));
+        }
+    } catch (error) {
+        serverErrorAlert();
+    }
+}
+
+export const registerTC = (username: string, password: string): ThunkAction<void, RootState, unknown, Action<string>> => async dispatch => {
+    try {
+        const { success } = await authAPI.register(username, password);
+        dispatch(reset('register'));
+        if(success) {
+            dispatch(setLoggedAC(true));
+        } else {
+            dispatch(setLoggedAC(false));
         }
     } catch (error) {
         serverErrorAlert();

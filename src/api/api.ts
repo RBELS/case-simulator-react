@@ -1,4 +1,4 @@
-import { StatusI, GetUsernameStatusI } from './apiTypes';
+import { StatusI, GetUsernameStatusI, UsernameValidateStatusI } from './apiTypes';
 import { CaseContentStateI } from './../store/reducers/caseContentReducer/caseContentTypes';
 import { CaseI } from './../store/reducers/mainContentReducer/mainContentTypes';
 import Axios, { AxiosPromise, AxiosResponse } from "axios";
@@ -13,7 +13,9 @@ export const getCasesAPI = (): Promise<Array<CaseI>> => instance.get(`cases`).th
 export const getCaseContentAPI = (caseid: string): Promise<CaseContentStateI>  => instance.get(`cases/${caseid}`).then(res => res.data);
 export const authAPI = {
     login: (username: string, password: string): Promise<StatusI> => instance.post(`auth/login`, { username, password }).then(res => res.data),
+    register: (username: string, password: string): Promise<StatusI> => instance.post(`auth/register`, { username, password }).then(res => res.data),
     amLogged: (): Promise<StatusI> => instance.get(`auth/login`).then(res => res.data),
     getUsername: (): Promise<GetUsernameStatusI> => instance.get(`profile/username`).then(res => res.data),
-    logout: (): AxiosPromise => instance.delete(`auth/login`)
+    logout: (): AxiosPromise => instance.delete(`auth/login`),
+    usernameExists: (username: string): Promise<UsernameValidateStatusI> => instance.post(`validators/usernameExists`, { username }).then(res => res.data)
 };

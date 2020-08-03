@@ -6,10 +6,15 @@ export interface CaseContentStateI {
     avatar: string
     price: number | undefined
     items: Array<CaseContentItemI>
+    loading: boolean
 }
 
 export interface setCaseContentActionI extends Action<string> {
     caseContent: CaseContentStateI
+}
+
+export interface setLoadingActionI extends Action<string> {
+    loading: boolean
 }
 
 export interface CaseContentItemI {
