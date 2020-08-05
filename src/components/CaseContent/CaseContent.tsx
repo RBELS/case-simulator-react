@@ -5,7 +5,7 @@ import { Grid, Typography, CardActionArea, CardMedia, Button, Card, makeStyles }
 import { RootState } from '../../store/store';
 import CaseItem from './CaseItem/CaseItem';
 import { CaseContentItemI } from '../../store/reducers/caseContentReducer/caseContentTypes';
-import { setCaseContentTC } from '../../store/reducers/caseContentReducer/caseContentActions';
+import { setCaseContentTC, openCaseTC, stopOpenCaseTC } from '../../store/reducers/caseContentReducer/caseContentActions';
 import LoadingComponent from '../LoadingComponent/LoadingComponent';
 import Roulette from './Roulette/Roulette';
 
@@ -21,7 +21,11 @@ interface PropsI extends RouteComponentProps {
     avatar: string
     price: number
     items: Array<CaseContentItemI>
+    opening: boolean
+    resultItem: CaseContentItemI
     setCaseContent: (caseid: string) => void
+    openCase: (caseid: string) => void
+    stopOpenCase: () => void
 }
 
 interface ParamsI {
@@ -56,16 +60,16 @@ const useStyles = makeStyles({
     }
 });
 
-const CaseContent = ({ match: { params: { caseid } }, name, avatar, price, items, loading, setCaseContent }: PropsI) => {
+const CaseContent = ({ match: { params: { caseid } }, name, avatar, price, items, loading, opening, resultItem, setCaseContent, openCase, stopOpenCase }: PropsI) => {
     const classes = useStyles();
-    const [ opening, setOpening ] = useState(false);
 
     useEffect(() => {
         setCaseContent(caseid);
     }, []);
 
     const handleOpen = () => {
-        setOpening(!opening);
+        openCase(caseid);
+        // setOpening(!opening);
     }
 
 
@@ -76,15 +80,15 @@ const CaseContent = ({ match: { params: { caseid } }, name, avatar, price, items
         <Grid item className={classes.main} xl={8} md={9} sm={10} xs={12} >
             <Typography className={classes.caseName} variant='h3' color='primary'>{name}</Typography>
             {opening ?
-            <Roulette items={items} />
+            <Roulette stopOpenCase={stopOpenCase} items={items} drop={resultItem} />
             :
             <Card className={classes.card}>
                 <CardActionArea disableRipple>
-                    <CardMedia className={classes.caseImg} image={avatar}/>
+                    <CardMedia className={classes.caseImg} image={avatar} />
                 </CardActionArea>
             </Card>
             }
-            <Button onClick={handleOpen} className={classes.openBt} variant='contained' color='primary' >Open: {price} bucks</Button>
+            <Button onClick={opening ? null : handleOpen} className={classes.openBt} variant='contained' color='primary' >{opening ? 'Opening...' : `Open: ${price} bucks`}</Button>
         </Grid>
 
         <Grid container item className={classes.items} xl={8} md={9} sm={10} xs={12} >
@@ -98,7 +102,9 @@ const mapStateToProps = (state: RootState) => ({
     avatar: state.caseContent.avatar,
     price: state.caseContent.price,
     items: state.caseContent.items,
-    loading: state.caseContent.loading
+    loading: state.caseContent.loading,
+    opening: state.caseContent.opening,
+    resultItem: state.caseContent.resultItem
 })
 
-export default withRouter(connect(mapStateToProps, { setCaseContent: setCaseContentTC })(CaseContent))
+export default withRouter(connect(mapStateToProps, { setCaseContent: setCaseContentTC, openCase: openCaseTC, stopOpenCase: stopOpenCaseTC })(CaseContent))

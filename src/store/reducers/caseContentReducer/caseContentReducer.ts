@@ -1,14 +1,16 @@
 import { AnyAction } from 'redux';
 import { CaseContentStateI, setCaseContentActionI } from './caseContentTypes';
-import { SET_CASE_CONTENT, SET_LOADING } from './caseContentActions';
+import { SET_CASE_CONTENT, SET_LOADING, SET_OPENING, SET_RESULT_ITEM } from './caseContentActions';
 
 const initialState: CaseContentStateI = {
     id: undefined,
     name: undefined,
-    avatar: "https://dictionary.cambridge.org/ru/images/thumb/cross_noun_002_09265.jpg?version=5.0.107",
+    avatar: 'https://dictionary.cambridge.org/ru/images/thumb/cross_noun_002_09265.jpg?version=5.0.107',
     price: undefined,
     items: [],
-    loading: false
+    loading: false,
+    opening: false,
+    resultItem: null
 }
 
 const caseContentReducer = (state = initialState, action: AnyAction): CaseContentStateI => {
@@ -22,6 +24,16 @@ const caseContentReducer = (state = initialState, action: AnyAction): CaseConten
             return {
                 ...state,
                 loading: action.loading
+            }
+        case SET_OPENING:
+            return {
+                ...state,
+                opening: action.opening
+            }
+        case SET_RESULT_ITEM:
+            return {
+                ...state,
+                resultItem: action.resultItem
             }
         default:
             return state;
