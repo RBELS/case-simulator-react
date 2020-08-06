@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 import { CaseContentStateI, setCaseContentActionI } from './caseContentTypes';
-import { SET_CASE_CONTENT, SET_LOADING, SET_OPENING, SET_RESULT_ITEM } from './caseContentActions';
+import { SET_CASE_CONTENT, SET_LOADING, SET_OPENING, SET_RESULT_ITEM, SET_SHOW_DROP } from './caseContentActions';
 
 const initialState: CaseContentStateI = {
     id: undefined,
@@ -10,6 +10,7 @@ const initialState: CaseContentStateI = {
     items: [],
     loading: false,
     opening: false,
+    showDrop: false,
     resultItem: null
 }
 
@@ -34,6 +35,11 @@ const caseContentReducer = (state = initialState, action: AnyAction): CaseConten
             return {
                 ...state,
                 resultItem: action.resultItem
+            }
+        case SET_SHOW_DROP:
+            return {
+                ...state,
+                showDrop: action.showDrop
             }
         default:
             return state;

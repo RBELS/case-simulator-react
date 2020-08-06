@@ -23,6 +23,7 @@ interface PropsI extends WithStyles<typeof styles> {
     items: Array<CaseContentItemI>
     drop: CaseContentItemI
     stopOpenCase: () => void
+    setShowDrop: (showDrop?: boolean) => void
 }
 
 interface RouletteState {
@@ -47,10 +48,17 @@ class Roulette extends Component<PropsI, RouletteState> {
     scrollSpeed: number;
     caseInterval;
 
-    endOpening = () => {
+    endOpening = (auto?: boolean) => {
         clearInterval(this.caseInterval);
-        const { stopOpenCase } = this.props;
-        stopOpenCase();
+        const { stopOpenCase, setShowDrop } = this.props;
+        if(auto) {
+            setTimeout(() => {
+                stopOpenCase();
+                setShowDrop(true);
+            }, 500)
+        } else {
+            stopOpenCase();
+        }
     }
 
     componentDidMount() {
@@ -61,8 +69,6 @@ class Roulette extends Component<PropsI, RouletteState> {
             newItems.push(items[random]);
         }
         newItems[57] = drop;
-        console.log(newItems);
-        console.log(drop);
         this.setState({ stateItems: newItems });
         this.rouletteRef = React.createRef();
 
@@ -74,8 +80,8 @@ class Roulette extends Component<PropsI, RouletteState> {
             this.scroll+=this.scrollSpeed;
             this.scrollSpeed-= client >= 800 ? 0.1 : 0.094;
 
-            if(this.scroll + client / 2 >= 8628) {
-                this.endOpening();
+            if(this.scroll + client / 2 >= 8628 || this.scrollSpeed <= 0) {
+                this.endOpening(true);
             }
         }, 10);
     }

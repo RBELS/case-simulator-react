@@ -1,36 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Grid, Typography, CardActionArea, CardMedia, Button, Card, makeStyles } from '@material-ui/core';
 import { RootState } from '../../store/store';
 import CaseItem from './CaseItem/CaseItem';
-import { CaseContentItemI } from '../../store/reducers/caseContentReducer/caseContentTypes';
-import { setCaseContentTC, openCaseTC, stopOpenCaseTC } from '../../store/reducers/caseContentReducer/caseContentActions';
+import { setCaseContentTC, openCaseTC, stopOpenCaseTC, showDropTC } from '../../store/reducers/caseContentReducer/caseContentActions';
 import LoadingComponent from '../LoadingComponent/LoadingComponent';
 import Roulette from './Roulette/Roulette';
-
-interface PropsI extends RouteComponentProps {
-    match: {
-        params: ParamsI
-        isExact: boolean
-        path: string
-        url: string
-    },
-    loading: boolean
-    name: string
-    avatar: string
-    price: number
-    items: Array<CaseContentItemI>
-    opening: boolean
-    resultItem: CaseContentItemI
-    setCaseContent: (caseid: string) => void
-    openCase: (caseid: string) => void
-    stopOpenCase: () => void
-}
-
-interface ParamsI {
-    caseid: string
-}
+import { CaseContentPropsI } from './CaseContentTypes';
+import Drop from './Drop/Drop';
 
 const useStyles = makeStyles({
     main: {
@@ -60,7 +38,7 @@ const useStyles = makeStyles({
     }
 });
 
-const CaseContent = ({ match: { params: { caseid } }, name, avatar, price, items, loading, opening, resultItem, setCaseContent, openCase, stopOpenCase }: PropsI) => {
+const CaseContent = ({ match: { params: { caseid } }, name, avatar, price, items, loading, opening, resultItem, showDrop, setCaseContent, openCase, stopOpenCase, showDropA }: CaseContentPropsI) => {
     const classes = useStyles();
 
     useEffect(() => {
@@ -69,9 +47,11 @@ const CaseContent = ({ match: { params: { caseid } }, name, avatar, price, items
 
     const handleOpen = () => {
         openCase(caseid);
-        // setOpening(!opening);
     }
 
+    const handleShowDrop = (show?: boolean) => {
+        showDropA(show);
+    }
 
     return loading ?
     <LoadingComponent />
@@ -79,8 +59,9 @@ const CaseContent = ({ match: { params: { caseid } }, name, avatar, price, items
     <>
         <Grid item className={classes.main} xl={8} md={9} sm={10} xs={12} >
             <Typography className={classes.caseName} variant='h3' color='primary'>{name}</Typography>
-            {opening ?
-            <Roulette stopOpenCase={stopOpenCase} items={items} drop={resultItem} />
+            {showDrop && <Drop setShowDrop={handleShowDrop} item={resultItem} />}
+            {showDrop ? null : opening ?
+            <Roulette setShowDrop={handleShowDrop} stopOpenCase={stopOpenCase} items={items} drop={resultItem} />
             :
             <Card className={classes.card}>
                 <CardActionArea disableRipple>
@@ -88,7 +69,7 @@ const CaseContent = ({ match: { params: { caseid } }, name, avatar, price, items
                 </CardActionArea>
             </Card>
             }
-            <Button onClick={opening ? null : handleOpen} className={classes.openBt} variant='contained' color='primary' >{opening ? 'Opening...' : `Open: ${price} bucks`}</Button>
+            {!opening && !showDrop && <Button onClick={opening ? null : handleOpen} className={classes.openBt} variant='contained' color='primary' >{opening ? 'Opening...' : `Open: ${price} bucks`}</Button>}
         </Grid>
 
         <Grid container item className={classes.items} xl={8} md={9} sm={10} xs={12} >
@@ -104,7 +85,8 @@ const mapStateToProps = (state: RootState) => ({
     items: state.caseContent.items,
     loading: state.caseContent.loading,
     opening: state.caseContent.opening,
-    resultItem: state.caseContent.resultItem
+    resultItem: state.caseContent.resultItem,
+    showDrop: state.caseContent.showDrop
 })
 
-export default withRouter(connect(mapStateToProps, { setCaseContent: setCaseContentTC, openCase: openCaseTC, stopOpenCase: stopOpenCaseTC })(CaseContent))
+export default withRouter(connect(mapStateToProps, { setCaseContent: setCaseContentTC, openCase: openCaseTC, stopOpenCase: stopOpenCaseTC, showDropA: showDropTC })(CaseContent))

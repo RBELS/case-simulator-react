@@ -8,7 +8,12 @@ export interface CaseContentStateI {
     items: Array<CaseContentItemI>
     loading: boolean
     opening: boolean
+    showDrop: boolean
     resultItem: CaseContentItemI
+}
+
+export interface setShowDropActionI extends Action<string> {
+    showDrop: boolean
 }
 
 export interface setCaseContentActionI extends Action<string> {
