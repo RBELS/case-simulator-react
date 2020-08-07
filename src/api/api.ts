@@ -2,10 +2,12 @@ import { StatusI, GetUsernameStatusI, UsernameValidateStatusI } from './apiTypes
 import { CaseContentStateI, CaseContentItemI } from './../store/reducers/caseContentReducer/caseContentTypes';
 import { CaseI } from './../store/reducers/mainContentReducer/mainContentTypes';
 import Axios, { AxiosPromise, AxiosResponse } from "axios";
+import { HeaderItemI } from '../store/reducers/headerReducer/headerTypes';
 
 const instance = Axios.create({
     // baseURL: "http://25.67.248.153:8000/",
     baseURL: "http://25.40.173.182:5000/",
+    // baseURL: "http://192.168.0.106:5000/",
     withCredentials: true
 });
 
@@ -20,3 +22,6 @@ export const authAPI = {
     logout: (): AxiosPromise => instance.delete(`auth/login`),
     usernameExists: (username: string): Promise<UsernameValidateStatusI> => instance.post(`validators/usernameExists`, { username }).then(res => res.data)
 };
+export const headerAPI = {
+    getHeaderItems: (last?: number): Promise<Array<HeaderItemI>> => instance.get(`public/header/${ last ? last : '' }`).then(res => res.data)
+}

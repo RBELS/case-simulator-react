@@ -11,7 +11,7 @@ const styles = {
         display: 'flex',
         flexDirection: 'row',
         overflow: 'hidden',
-        margin: '30px 0px',
+        margin: '53px 0px',
         height: 140
     },
     cursor: {

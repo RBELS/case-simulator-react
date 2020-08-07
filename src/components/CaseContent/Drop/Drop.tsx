@@ -19,7 +19,7 @@ const useStyles = makeStyles({
         margin: '15px 0px',
     },
     bt: {
-        margin: 5
+        margin: 7
     }
 });
 

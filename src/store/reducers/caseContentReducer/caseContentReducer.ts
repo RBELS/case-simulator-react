@@ -5,10 +5,10 @@ import { SET_CASE_CONTENT, SET_LOADING, SET_OPENING, SET_RESULT_ITEM, SET_SHOW_D
 const initialState: CaseContentStateI = {
     id: undefined,
     name: undefined,
-    avatar: 'https://dictionary.cambridge.org/ru/images/thumb/cross_noun_002_09265.jpg?version=5.0.107',
+    avatar: '',
     price: undefined,
     items: [],
-    loading: false,
+    loading: true,
     opening: false,
     showDrop: false,
     resultItem: null
