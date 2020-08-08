@@ -3,6 +3,7 @@ import { MenuItem } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { RootState } from '../../../store/store';
 import { setUsernameTC, logOutTC } from '../../../store/reducers/authReducer/authActions';
+import { NavLink } from 'react-router-dom';
 
 interface PropsI {
     handleClose: () => void
@@ -22,7 +23,9 @@ const LoggedMenu = ({ handleClose, getUsername, logout, username }: PropsI) => {
     }, []);
 
     return <div>
-        <MenuItem onClick={handleClose} >{username}</MenuItem>
+        <NavLink style={{ textDecoration: 'none', color: '#000' }} to={`/profile/${username}`}>
+            <MenuItem onClick={handleClose} >{username}</MenuItem>
+        </NavLink>
         <MenuItem onClick={handleLogOutClick} >Log Out</MenuItem>
     </div>
 }

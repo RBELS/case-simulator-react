@@ -1,8 +1,7 @@
 import React from 'react';
-import { Card, CardActionArea, CardMedia, Grid, CardContent, Typography } from '@material-ui/core';
+import { Grid, CardActionArea, CardContent, CardMedia, Typography, Card, CardActions, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import { bgStyles } from './Backgrounds';
-import { CaseContentItemI } from '../../../store/reducers/caseContentReducer/caseContentTypes';
+import { bgStyles } from '../../CaseContent/CaseItem/Backgrounds';
 
 const useStyles = makeStyles({
     item: {
@@ -26,34 +25,35 @@ const useStyles = makeStyles({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        margin: '5px 0px'
+        margin: '5px 0px',
     },
     content: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        height: 20
+        height: 'fit-content',
     },
+    itemName: {
+    }
 });
 
-
-
-const CaseItem = ({ avatar, id, name, price, quality }: CaseContentItemI) => {
+const DropItem = () => {
     const classes = useStyles();
-    const bgColor = bgStyles[quality];
+    const bgColor = bgStyles[5];
 
     return <Grid className={classes.container} item xl={2} md={2} sm={3} xs={4} >
         <Card className={classes.card}>
             <CardActionArea disableRipple className={`${classes.area}`} style={bgColor}>
-                <CardMedia className={classes.itemImg} image={avatar}/>
+                <CardMedia className={classes.itemImg} image='http://25.40.173.182:4000/img/Cobblestone/14.png'/>
             </CardActionArea>
             <CardContent className={classes.content}>
-                <Typography variant='body2'>{name}</Typography>
+                <Typography className={classes.itemName} variant='body2'>{'AWP | История о драконе'}</Typography>
             </CardContent>
+            <CardActions>
+                <Button>$1200</Button>
+            </CardActions>
         </Card>
-    </Grid> 
-    
-    
+    </Grid>
 }
 
-export default CaseItem
+export default DropItem;

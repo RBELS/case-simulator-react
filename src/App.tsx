@@ -10,6 +10,7 @@ import { RootState } from './store/store';
 import { initAppTC } from './store/reducers/appReducer/appActions';
 import InitializingComponent from './components/InitializingComponent/InitializingComponent';
 import RegisterPage from './components/RegisterPage/RegisterPage';
+import Profile from './components/Profile/Profile';
 
 interface PropsI {
     inited: boolean
@@ -30,6 +31,7 @@ const App = ({ inited, initApp }: PropsI) => {
             <Route path='/case/:caseid?' render={() => <CaseContent />} />
             <Route exact path='/login' render={() => <LoginPage />} />
             <Route exact path='/register' render={() => <RegisterPage />} />
+            <Route path='/profile/:username' render={() => <Profile />} />
         </Switch>
     </>
     :

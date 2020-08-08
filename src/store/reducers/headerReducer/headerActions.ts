@@ -13,8 +13,9 @@ const setLastRowIdAC = ( id: number ): SetLastRowIdActionI => ({ type: SET_LAST_
 const pushHeaderItemsAC = ( items: Array<HeaderItemI> ): HeaderItemsActionI => ({ type: PUSH_HEADER_ITEMS, items });
 
 export const setHeaderItemsTC = (  ): ThunkAction<void, RootState, unknown, Action<string>> => async dispatch => {
+    
     const headerItems = await headerAPI.getHeaderItems();
-    dispatch(setLastRowIdAC(headerItems[0].rowid));
+    dispatch(setLastRowIdAC(headerItems[0]?.rowid));
     dispatch(pushHeaderItemsAC(headerItems));
 }
 
