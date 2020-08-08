@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { HeaderItemI } from '../../../store/reducers/headerReducer/headerTypes';
-import { Card, CardActionArea, CardMedia } from '@material-ui/core';
+import { Card, CardActionArea, CardMedia, Typography, CardContent } from '@material-ui/core';
 import { bgStyles } from '../../CaseContent/CaseItem/Backgrounds';
 
 // const useStyles = makeStyles({
@@ -30,15 +30,25 @@ const useStyles = makeStyles({
         width: 70,
         minWidth: 70,
         margin: 5,
-        
+        '&:hover .hov': {
+            display: 'block'
+        }
     },
+    user: {
+        position: 'absolute',
+        zIndex: 5,
+        display: 'none'
+    },
+    typ: {
+
+    }
 });
 
 interface PropsI extends HeaderItemI {
 
 }
 
-const HeaderItem = ({ avatar, quality, caseavatar }: PropsI) => {
+const HeaderItem = ({ avatar, quality, caseavatar, name, user }: PropsI) => {
     const [ hover, setHover ] = useState(false);
 
     const onMouseEnter = () => {
@@ -53,11 +63,16 @@ const HeaderItem = ({ avatar, quality, caseavatar }: PropsI) => {
     const bgColor = bgStyles[quality];
 
     // return <div className={classes.testItem}></div>;
-    return <Card onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} className={classes.card}>
-        <CardActionArea disableRipple className={`${classes.area}`} style={bgColor} >
-            <CardMedia className={classes.itemImg} image={hover ? caseavatar : avatar} />
-        </CardActionArea>
-    </Card>
+    return <div>
+        <Card onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} className={classes.card}>
+            <CardActionArea disableRipple className={`${classes.area}`} style={bgColor} >
+                <CardMedia className={classes.itemImg} image={hover ? caseavatar : avatar} />
+            </CardActionArea>
+            <CardContent className={`${classes.user} hov`} >
+                <Typography className={classes.typ}>{user}</Typography>
+            </CardContent>
+        </Card>
+    </div>
 }
 
 export default HeaderItem;
