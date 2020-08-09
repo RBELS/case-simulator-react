@@ -3,13 +3,15 @@ import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem } from '@materi
 import { AccountCircle } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';
 import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
 import IncognitoMenu from './IncognitoMenu/IncognitoMenu';
 import LoggedMenu from './LoggedMenu/LoggedMenu';
 import { setHeaderItemsTC, updateHeaderTC } from '../../store/reducers/headerReducer/headerActions';
 import { HeaderItemI } from '../../store/reducers/headerReducer/headerTypes';
 import HeaderItem from './HeaderItem/HeaderItem';
+import headerSelectors from '../../store/reducers/headerReducer/headerSelectors';
+import authSelectors from '../../store/reducers/authReducer/authSelectors';
 
 const useStyles = makeStyles({
     toolBar: {
@@ -38,25 +40,26 @@ const useStyles = makeStyles({
 });
 
 interface PropsI {
-    logged: boolean
-    headerItems: Array<HeaderItemI>
-    lastRowId: number
-    setHeaderItems: () => void
-    updateHeader: (lastRowId: number) => void
 }
 
-const Header = ({ logged, headerItems, lastRowId, setHeaderItems, updateHeader }: PropsI) => {
+const Header = ({  }: PropsI) => {
     const classes = useStyles();
+    const dispatch = useDispatch();
+
+    const headerItems = useSelector(headerSelectors.headerItems);
+    const lastRowId = useSelector(headerSelectors.lastRowId);
+    const logged = useSelector(authSelectors.logged);
+
     const [ opened, setOpened ] = useState<boolean>(false);
     const [ anchorEl, setAnchorEl ] = useState<null | HTMLElement>(null);
 
     useEffect(() => {
-        setHeaderItems();
+        dispatch(setHeaderItemsTC());
     }, []);
 
     useEffect(() => {
         const interval = setInterval(() => {
-            updateHeader(lastRowId);
+            dispatch(updateHeaderTC(lastRowId));
         }, 7000);
 
         return () => {
@@ -104,10 +107,11 @@ const Header = ({ logged, headerItems, lastRowId, setHeaderItems, updateHeader }
     </AppBar>
 }
 
-const mapStateToProps = (state: RootState) => ({
-    logged: state.auth.logged,
-    headerItems: state.header.headerItems,
-    lastRowId: state.header.lastRowId
-});
+// const mapStateToProps = (state: RootState) => ({
+//     logged: state.auth.logged,
+//     headerItems: state.header.headerItems,
+//     lastRowId: state.header.lastRowId
+// });
 
-export default connect(mapStateToProps, { setHeaderItems: setHeaderItemsTC, updateHeader: updateHeaderTC })(Header)
+// export default connect(mapStateToProps, { setHeaderItems: setHeaderItemsTC, updateHeader: updateHeaderTC })(Header)
+export default Header;

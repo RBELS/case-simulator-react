@@ -2,10 +2,9 @@ import React, { useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from "@material-ui/styles";
 import Case from './Case/Case';
-import { connect } from 'react-redux';
-import { RootState } from '../../store/store';
-import { CaseI } from '../../store/reducers/mainContentReducer/mainContentTypes';
+import { useDispatch, useSelector } from 'react-redux';
 import { setCasesTC } from '../../store/reducers/mainContentReducer/mainContenActions';
+import mainContentSelectors from '../../store/reducers/mainContentReducer/mainContentSelectors';
 
 const useStyles = makeStyles({
     container: {
@@ -14,15 +13,16 @@ const useStyles = makeStyles({
 });
 
 interface PropsI {
-    cases: Array<CaseI>,
-    setCases: () => void
 }
 
-const Content = ({ cases, setCases }: PropsI) => {
+const Content = ({  }: PropsI) => {
     const classes = useStyles();
+    const dispatch = useDispatch();
+
+    const cases = useSelector(mainContentSelectors.cases);
 
     useEffect(() => {
-        setCases();
+        dispatch(setCasesTC());
     }, []);
 
     return <Grid className={classes.container} container>
@@ -36,8 +36,4 @@ const Content = ({ cases, setCases }: PropsI) => {
     </Grid>
 }
 
-const mapStateToProps = (state: RootState) => ({
-    cases: state.main.cases
-});
-
-export default connect(mapStateToProps,{ setCases: setCasesTC })(Content);
+export default Content;

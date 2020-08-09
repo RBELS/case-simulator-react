@@ -6,8 +6,8 @@ import { HeaderItemI } from '../store/reducers/headerReducer/headerTypes';
 
 const instance = Axios.create({
     // baseURL: "http://25.67.248.153:8000/",
-    baseURL: "http://25.40.173.182:5000/",
-    // baseURL: "http://192.168.0.100:5000/",
+    // baseURL: "http://25.40.173.182:5000/",
+    baseURL: "http://192.168.0.105:5000/",
     withCredentials: true
 });
 

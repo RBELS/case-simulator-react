@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { Grid, Typography, CardActionArea, CardMedia, Button, Card, makeStyles } from '@material-ui/core';
-import { RootState } from '../../store/store';
 import CaseItem from './CaseItem/CaseItem';
 import { setCaseContentTC, openCaseTC, stopOpenCaseTC, showDropTC } from '../../store/reducers/caseContentReducer/caseContentActions';
 import LoadingComponent from '../LoadingComponent/LoadingComponent';
 import Roulette from './Roulette/Roulette';
-import { CaseContentPropsI } from './CaseContentTypes';
 import Drop from './Drop/Drop';
+import caseContentSelectors from '../../store/reducers/caseContentReducer/caseContentSelectors';
 
 const useStyles = makeStyles({
     main: {
@@ -38,19 +37,39 @@ const useStyles = makeStyles({
     }
 });
 
-const CaseContent = ({ match: { params: { caseid } }, name, avatar, price, items, loading, opening, resultItem, showDrop, setCaseContent, openCase, stopOpenCase, showDropA }: CaseContentPropsI) => {
+interface CaseContentParamsI {
+    caseid: string
+}
+
+const CaseContent = ({  }) => {
     const classes = useStyles();
+    const dispatch = useDispatch();
+    const { caseid } = useParams<CaseContentParamsI>();
+
+    const name = useSelector(caseContentSelectors.name),
+        avatar = useSelector(caseContentSelectors.avatar),
+        price = useSelector(caseContentSelectors.price),
+        items = useSelector(caseContentSelectors.items),
+        loading = useSelector(caseContentSelectors.loading),
+        opening = useSelector(caseContentSelectors.opening),
+        resultItem = useSelector(caseContentSelectors.resultItem),
+        showDrop = useSelector(caseContentSelectors.showDrop);
+
 
     useEffect(() => {
-        setCaseContent(caseid);
+        dispatch(setCaseContentTC(caseid));
     }, []);
 
     const handleOpen = () => {
-        openCase(caseid);
+        dispatch(openCaseTC(caseid));
     }
 
     const handleShowDrop = (show?: boolean) => {
-        showDropA(show);
+        dispatch(showDropTC(show));
+    }
+
+    const stopOpenCase = () => {
+        dispatch(stopOpenCaseTC());
     }
 
     return loading ?
@@ -78,15 +97,4 @@ const CaseContent = ({ match: { params: { caseid } }, name, avatar, price, items
     </>
 }
 
-const mapStateToProps = (state: RootState) => ({
-    name: state.caseContent.name,
-    avatar: state.caseContent.avatar,
-    price: state.caseContent.price,
-    items: state.caseContent.items,
-    loading: state.caseContent.loading,
-    opening: state.caseContent.opening,
-    resultItem: state.caseContent.resultItem,
-    showDrop: state.caseContent.showDrop
-})
-
-export default withRouter(connect(mapStateToProps, { setCaseContent: setCaseContentTC, openCase: openCaseTC, stopOpenCase: stopOpenCaseTC, showDropA: showDropTC })(CaseContent))
+export default CaseContent;

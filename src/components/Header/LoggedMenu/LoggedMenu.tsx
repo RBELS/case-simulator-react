@@ -1,25 +1,30 @@
 import React, { useEffect } from 'react';
 import { MenuItem } from '@material-ui/core';
-import { connect } from 'react-redux';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../store/store';
 import { setUsernameTC, logOutTC } from '../../../store/reducers/authReducer/authActions';
 import { NavLink } from 'react-router-dom';
+import authSelectors from '../../../store/reducers/authReducer/authSelectors';
 
 interface PropsI {
     handleClose: () => void
-    getUsername: () => void
-    logout: () => void
-    username: string
+    // getUsername: () => void
+    // logout: () => void
+    // username: string
 }
 
-const LoggedMenu = ({ handleClose, getUsername, logout, username }: PropsI) => {
+const LoggedMenu = ({ handleClose }: PropsI) => {
+    const dispatch = useDispatch();
+
+    const username = useSelector(authSelectors.username);
+
     const handleLogOutClick = () => {
-        logout();
+        dispatch(logOutTC());
         handleClose();
     }
 
     useEffect(() => {
-        getUsername();
+        dispatch(setUsernameTC());
     }, []);
 
     return <div>
@@ -30,8 +35,9 @@ const LoggedMenu = ({ handleClose, getUsername, logout, username }: PropsI) => {
     </div>
 }
 
-const mapStateToProps = (state: RootState) => ({
-    username: state.auth.username
-})
+// const mapStateToProps = (state: RootState) => ({
+//     username: state.auth.username
+// })
 
-export default connect(mapStateToProps, { getUsername: setUsernameTC, logout: logOutTC })(LoggedMenu);
+// export default connect(mapStateToProps, { getUsername: setUsernameTC, logout: logOutTC })(LoggedMenu);
+export default LoggedMenu;

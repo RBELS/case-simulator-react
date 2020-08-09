@@ -1,11 +1,11 @@
-import React, { useEffect, useState, Component, Ref } from 'react';
+import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Grid, Card, Typography } from '@material-ui/core';
+import { Card } from '@material-ui/core';
 import RouletteItem from './RouletteItem/RouletteItem';
 import { CaseContentItemI } from '../../../store/reducers/caseContentReducer/caseContentTypes';
-import { WithStyles } from '@material-ui/styles';
+import { WithStyles, createStyles } from '@material-ui/styles';
 
-const styles = {
+const styles = createStyles({
     roulette: {
         width: '100%',
         display: 'flex',
@@ -17,7 +17,7 @@ const styles = {
     cursor: {
         width: '30px'
     }
-};
+});
 
 interface PropsI extends WithStyles<typeof styles> {
     items: Array<CaseContentItemI>
