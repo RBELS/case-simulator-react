@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Button, Typography } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
-import { reduxForm, Field } from 'redux-form';
+import { reduxForm, Field, InjectedFormProps } from 'redux-form';
 import RenderTextField from './RenderField';
 import { maxLength, minLength, requiredField } from '../../../store/validators/FormValidators';
 
@@ -34,12 +34,11 @@ const maxLength20 = maxLength(20);
 const minLength8 = minLength(8);
 const minLength3 = minLength(3);
 
-interface PropsI {
-    error: string
-    handleSubmit: () => void
+interface PropsI extends InjectedFormProps {
+    // error: string
 }
 
-const LoginForm = ({ handleSubmit, error, ...props }) => {
+const LoginForm = ({ handleSubmit, error, ...props }: PropsI) => {
     const classes = useStyles();
 
     console.log(props);
@@ -62,8 +61,8 @@ const LoginForm = ({ handleSubmit, error, ...props }) => {
 }
 
 export interface LoginFormDataI {
-    username: string
-    password: string
+    username?: string
+    password?: string
 }
 
 export default reduxForm({ form: 'login' })(LoginForm);

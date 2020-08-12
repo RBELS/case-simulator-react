@@ -61,7 +61,7 @@ const useStyles = makeStyles({
 });
 
 interface PropsI extends DropItemI {
-    myProfile: boolean
+    myProfile?: boolean
 }
 
 const DropItem = ({ avatar, caseavatar, name, price, quality, sold, caseid, rowid, myProfile }: PropsI) => {
@@ -80,7 +80,11 @@ const DropItem = ({ avatar, caseavatar, name, price, quality, sold, caseid, rowi
     }
 
     const handleSell = () => {
-        dispatch(sellItemTC(rowid));
+        if(myProfile) {
+            dispatch(sellItemTC(rowid));
+        } else {
+            alert('Sosi');
+        }
     }
 
     return <Grid className={classes.container} item xl={2} md={2} sm={3} xs={4} >
@@ -94,7 +98,7 @@ const DropItem = ({ avatar, caseavatar, name, price, quality, sold, caseid, rowi
                 </CardContent>
             </NavLink>
             <CardActions className={classes.actions}>
-                {sold ? <Typography className={classes.soldTyp}>Sold: ${price}</Typography> : <Button onClick={myProfile ? handleSell : null} className={classes.sellButton}>${price}</Button>}
+                {sold ? <Typography className={classes.soldTyp}>Sold: ${price}</Typography> : <Button onClick={handleSell} className={classes.sellButton}>${price}</Button>}
             </CardActions>
         </Card>
     </Grid>

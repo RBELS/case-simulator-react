@@ -6,7 +6,7 @@ export interface StatusI {
 
 export interface GetUsernameStatusI {
     error?: string
-    username?: string
+    username: string
 }
 
 export interface UsernameValidateStatusI {

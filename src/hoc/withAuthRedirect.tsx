@@ -1,9 +1,9 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import authSelectors from '../store/reducers/authReducer/authSelectors';
 
-const withAuthRedirect = (Component) => {
+const withAuthRedirect = (Component: FunctionComponent) => {
     const RedirectComponent = (props: any) => {
         const logged = useSelector(authSelectors.logged);
 

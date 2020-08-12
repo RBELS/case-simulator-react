@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, MouseEvent, SyntheticEvent } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Grid, Typography, CardActionArea, CardMedia, Button, Card, makeStyles } from '@material-ui/core';
@@ -68,10 +68,10 @@ const CaseContent = ({  }) => {
         }
     }, []);
 
-    const handleOpen = () => {
+    const handleOpen = (event?: any) => {
         dispatch(openCaseTC(caseid));
     }
-    const openHandler = opening ? null : openError ? null : handleOpen;
+    // const openHandler = opening ? null : openError ? null : handleOpen;
 
     const handleShowDrop = (show?: boolean) => {
         dispatch(showDropTC(show));
@@ -100,7 +100,7 @@ const CaseContent = ({  }) => {
                 </CardActionArea>
             </Card>
             }
-            {!opening && !showDrop && <Button onClick={openHandler} className={classes.openBt} variant='contained' color='primary' >{openText}</Button>}
+            {!opening && !showDrop && <Button onClick={handleOpen} className={classes.openBt} variant='contained' color='primary' >{openText}</Button>}
         </Grid>
 
         <Grid container item className={classes.items} xl={8} md={9} sm={10} xs={12} >

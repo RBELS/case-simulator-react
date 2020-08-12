@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Ref, RefObject } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Card } from '@material-ui/core';
 import RouletteItem from './RouletteItem/RouletteItem';
@@ -43,10 +43,10 @@ class Roulette extends Component<PropsI, RouletteState> {
         stateItems: []
     }
     
-    rouletteRef;
+    rouletteRef: RefObject<HTMLDivElement>;
     scroll: number;
     scrollSpeed: number;
-    caseInterval;
+    caseInterval: any;
 
     endOpening = (auto?: boolean) => {
         clearInterval(this.caseInterval);
@@ -74,13 +74,17 @@ class Roulette extends Component<PropsI, RouletteState> {
 
         this.caseInterval = setInterval(() => {
             const { rouletteRef } = this;
-            const client = rouletteRef.current.clientWidth;
+            const client: any = rouletteRef?.current?.clientWidth;
 
-            rouletteRef.current.scrollLeft = this.scroll;
+            //here
+            if(rouletteRef?.current?.scrollLeft || rouletteRef.current?.scrollLeft === 0) {
+                rouletteRef.current.scrollLeft = this.scroll;
+            }
+            //here
             this.scroll+=this.scrollSpeed;
-            this.scrollSpeed-= client >= 800 ? 0.1 : 0.094;
+            this.scrollSpeed -= client >= 800 ? 0.1 : 0.094;
 
-            if(this.scroll + client / 2 >= 8628 || this.scrollSpeed <= 0) {
+            if(client && (this.scroll + client / 2 >= 8628 || this.scrollSpeed <= 0)) {
                 this.endOpening(true);
             }
         }, 10);

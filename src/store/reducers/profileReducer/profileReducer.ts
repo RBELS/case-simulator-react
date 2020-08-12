@@ -5,8 +5,8 @@ import { SET_EXISTS, SET_PROFILE_INFO, SET_DROPS, SET_ITEM_SOLD, ADD_MONEY, APPE
 const initialState = {
     exists: false,
     username: null as string | null,
-    balance: null as number | null,
-    myProfile: null as boolean | null,
+    balance: undefined as number | undefined,
+    myProfile: undefined as boolean | undefined,
     page: 1,
     drops: [] as Array<DropItemI>,
     loadingDrops: false as boolean,

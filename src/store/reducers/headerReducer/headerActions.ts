@@ -19,7 +19,7 @@ export const setHeaderItemsTC = (  ): ThunkAction<void, RootState, unknown, Acti
     dispatch(pushHeaderItemsAC(headerItems));
 }
 
-export const updateHeaderTC = ( lastRowId: number ): ThunkAction<void, RootState, unknown, Action<string>> => async dispatch => {
+export const updateHeaderTC = ( lastRowId?: number | null ): ThunkAction<void, RootState, unknown, Action<string>> => async dispatch => {
     const newHeaderItems = await headerAPI.getHeaderItems(lastRowId);
     if(newHeaderItems.length === 0) {
         return;

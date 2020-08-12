@@ -5,13 +5,13 @@ import { SET_CASE_CONTENT, SET_LOADING, SET_OPENING, SET_RESULT_ITEM, SET_SHOW_D
 const initialState = {
     id: null as number | null,
     name: null as string | null,
-    avatar: null as string | null,
+    avatar: undefined as string | undefined,
     price: null as number | null,
     items: [] as Array<CaseContentItemI>,
     loading: true,
     opening: false,
     showDrop: false,
-    resultItem: null as CurrentDropItemI | null,
+    resultItem: null as unknown as CurrentDropItemI,
     exists: true,
     openError: null as string | null
 }

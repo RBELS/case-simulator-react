@@ -1,18 +1,18 @@
 import { authAPI } from './../../api/api';
 import { registerFormData } from './../../components/RegisterPage/RegisterForm/RegisterForm';
-export const maxLength = (max: number) => (text: string): string => {
+export const maxLength = (max: number) => (text: string): string | undefined => {
     if(text?.length > max) return `Max length is ${max}.`;
 }
 
-export const minLength = (min: number) => (text:string): string => {
+export const minLength = (min: number) => (text:string): string | undefined => {
     if(text?.length < min) return `Min length is ${min}.`;
 }
 
-export const requiredField = (text: string): string => {
+export const requiredField = (text: string): string | undefined => {
     if(!text || text.length == 0) return 'This field is required.';
 }
 
-export const passwordsMatch = ( value: string, allValues ) => {
+export const passwordsMatch = ( value: string, allValues: registerFormData ): string | undefined => {
     if(value !== allValues.password ) return 'Passwords must match.';
 }
 

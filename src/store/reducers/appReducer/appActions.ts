@@ -1,4 +1,3 @@
-import { serverErrorAlert } from './../utils/alerts';
 import { amLoggedTC } from './../authReducer/authActions';
 import { RootState } from './../../store';
 import { ThunkAction } from 'redux-thunk';

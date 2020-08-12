@@ -1,3 +1,4 @@
+import { StatusI } from './../../../api/apiTypes';
 import { serverErrorAlert } from './../utils/alerts';
 import { authAPI } from './../../../api/api';
 import { RootState } from './../../store';
@@ -11,7 +12,7 @@ export const SET_LOGGED = 'SET_LOGGED', SET_USERNAME = "SET_USERNAME";
 export const setLoggedAC = (logged: boolean): SetLoggedActionI => ({ type: SET_LOGGED, logged });
 export const setUsernameAC = (username: string): SetUsernameActionI => ({ type: SET_USERNAME, username });
 
-export const loginTC = (username: string, password: string): ThunkAction<void, RootState, unknown, Action<string>> => async dispatch => {
+export const loginTC = (username?: string, password?: string): ThunkAction<void, RootState, unknown, Action<string>> => async dispatch => {
     try {
         const { success } = await authAPI.login(username, password);
         dispatch(reset('login'));
@@ -26,7 +27,7 @@ export const loginTC = (username: string, password: string): ThunkAction<void, R
     }
 }
 
-export const registerTC = (username: string, password: string): ThunkAction<void, RootState, unknown, Action<string>> => async dispatch => {
+export const registerTC = (username?: string, password?: string): ThunkAction<void, RootState, unknown, Action<string>> => async dispatch => {
     try {
         const { success } = await authAPI.register(username, password);
         dispatch(reset('register'));
@@ -62,11 +63,9 @@ export const logOutTC = (): ThunkAction<void, RootState, unknown, Action<string>
     }
 }
 
-//add ts here
-export const amLoggedTC = () => async (dispatch) => {
+//here
+export const amLoggedTC = (): ThunkAction<Promise<any>, RootState, unknown, SetLoggedActionI> => async dispatch => {
     return authAPI.amLogged().then(res => {
         dispatch(setLoggedAC(res.success));
     })
-    
 }
-//add ts here

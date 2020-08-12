@@ -15,12 +15,12 @@ export const
     SET_NO_MORE_DROPS = 'SET_NO_MORE_DROPS',
     SET_PAGE = 'SET_PAGE';
 
-const setProfileInfoAC = (username: string, balance: number, myProfile: boolean): SetProfileInfoActionI => ({ type: SET_PROFILE_INFO, payload: { username, balance, myProfile } });
+const setProfileInfoAC = (username: string | undefined, balance: number | undefined, myProfile: boolean | undefined): SetProfileInfoActionI => ({ type: SET_PROFILE_INFO, payload: { username, balance, myProfile } });
 const setExistsAC = (value: boolean): SetExistsActionI => ({ type: SET_EXISTS, value });
 const setDropsAC = (drops: Array<DropItemI>): DropsActionI => ({ type: SET_DROPS, drops });
 const appendDropsAC = (drops: Array<DropItemI>): DropsActionI => ({ type: APPEND_DROPS, drops });
 const setItemSoldAC = (rowid: number): SetItemSoldActionI => ({ type: SET_ITEM_SOLD, rowid });
-const addMoneyAC = (value: number): AddMoneyActionI => ({ type: ADD_MONEY, value });
+const addMoneyAC = (value?: number): AddMoneyActionI => ({ type: ADD_MONEY, value });
 const setLoadingDropsAC = (value: boolean): SetLoadingDropsActionI => ({ type: SET_LODAING_DROPS, value });
 const setNoMoreDropsAC = (value: boolean): SetNoMoreDropsActionI => ({ type: SET_NO_MORE_DROPS, value });
 const setPageAC = (value: number): SetPageActionI => ({ type: SET_PAGE, value });
@@ -51,7 +51,7 @@ export const sellItemTC = (rowid: number): ThunkAction<void, RootState, unknown,
     dispatch(addMoneyAC(price));
 }
 
-export const showMoreTC = (username: string, page: number): ThunkAction<void, RootState, unknown, Action<string>> => async dispatch => {
+export const showMoreTC = (username: string | null, page: number): ThunkAction<void, RootState, unknown, Action<string>> => async dispatch => {
     dispatch(setLoadingDropsAC(true));
     const newDrops = await profileAPI.drops(username, page+1);
     if(newDrops.length === 0) {

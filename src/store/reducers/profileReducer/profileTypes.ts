@@ -14,9 +14,9 @@ export interface DropItemI extends HeaderItemI {
 
 export interface SetProfileInfoActionI extends Action<string> {
     payload: {
-        username: string
-        balance: number
-        myProfile: boolean
+        username?: string
+        balance?: number
+        myProfile?: boolean
     }
 }
 
@@ -39,7 +39,7 @@ export interface SellItemResponse {
 }
 
 export interface AddMoneyActionI extends Action<string> {
-    value: number
+    value?: number
 }
 
 export interface SetLoadingDropsActionI extends Action<string> {

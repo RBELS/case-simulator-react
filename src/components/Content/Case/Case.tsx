@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Typography, Card, CardContent, CardActions, Button, CardMedia, CardActionArea } from '@material-ui/core';
 import { makeStyles } from "@material-ui/styles";
 import { NavLink } from 'react-router-dom';
-import { CaseI } from '../../../store/types/types';
+import { CaseI } from '../../../store/reducers/mainContentReducer/mainContentTypes';
 
 const useStyles = makeStyles(theme => ({
     case: {

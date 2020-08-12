@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Grid, Typography, Button } from '@material-ui/core';
-import { Field, reduxForm, ReduxFormContext } from 'redux-form';
+import { Field, reduxForm, ReduxFormContext, InjectedFormProps } from 'redux-form';
 import { NavLink } from 'react-router-dom';
 import RenderTextField from '../../LoginPage/LoginForm/RenderField';
 import { maxLength, minLength, requiredField, passwordsMatch, registerFormAsyncValidate } from '../../../store/validators/FormValidators';
@@ -33,7 +33,11 @@ const useStyles = makeStyles({
     }
 });
 
-const RegisterForm = ({ handleSubmit, ...props }) => {
+interface PropsI extends InjectedFormProps {
+    // handleSubmit: () => void
+}
+
+const RegisterForm = ({ handleSubmit, ...props }: PropsI) => {
     const classes = useStyles();
 
     return <form onSubmit={handleSubmit} name='register' className={classes.form}>

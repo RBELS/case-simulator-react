@@ -24,7 +24,7 @@ export interface CaseContentResponse {
 }
 
 export interface setShowDropActionI extends Action<string> {
-    showDrop: boolean
+    showDrop?: boolean
 }
 
 export interface setCaseContentActionI extends Action<string> {
@@ -40,7 +40,7 @@ export interface setOpeningAction extends Action<string> {
 }
 
 export interface setResultItemAction extends Action<string> {
-    resultItem: CurrentDropItemI
+    resultItem?: CurrentDropItemI
 }
 
 export interface SetExistsActionI extends Action<string> {
@@ -58,11 +58,11 @@ export interface CaseContentItemI {
 export interface OpenCaseResponse {
     item?: CurrentDropItemI
     success: boolean
-    error?: string
+    error?: string | null
 }
 
 export interface SetOpenErrorActionI extends Action<string> {
-    value: string | null
+    value?: string | null
 }
 
 export interface CurrentDropItemI extends CaseContentItemI {

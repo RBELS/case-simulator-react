@@ -74,7 +74,7 @@ const Profile = ({  }: PropsI) => {
         exists ? <>
             <Typography color='primary' variant='h2' className={classes.typ}>Account: {usernameStore}</Typography>
             <br />
-            {myProfile && <Typography color='primary' variant='h3' className={classes.typ}>
+            {myProfile && balance && <Typography color='primary' variant='h3' className={classes.typ}>
                 Balance: {Math.floor(balance)} bucks
                 <IconButton className={classes.add}>
                     <AddBoxOutlined color='primary' />

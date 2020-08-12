@@ -1,4 +1,5 @@
 import { RootState } from './../../store';
+
 const caseContentSelectors = {
     name: ({ caseContent: { name } }: RootState) => name,
     avatar: ({ caseContent: { avatar } }: RootState) => avatar,
