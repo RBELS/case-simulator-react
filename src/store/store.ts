@@ -7,6 +7,7 @@ import caseContentReducer from "./reducers/caseContentReducer/caseContentReducer
 import authReducer from "./reducers/authReducer/authReducer";
 import appReducer from "./reducers/appReducer/appReducer";
 import headerReducer from "./reducers/headerReducer/headerReducer";
+import profileReducer from "./reducers/profileReducer/profileReducer";
 
 const reducers = combineReducers({
     form: formReducer,
@@ -14,7 +15,8 @@ const reducers = combineReducers({
     caseContent: caseContentReducer,
     auth: authReducer,
     app: appReducer,
-    header: headerReducer
+    header: headerReducer,
+    profile: profileReducer
 });
 
 const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunkMiddleware)));

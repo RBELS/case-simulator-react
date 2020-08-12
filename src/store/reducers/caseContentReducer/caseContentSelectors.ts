@@ -7,7 +7,10 @@ const caseContentSelectors = {
     loading: ({ caseContent: { loading } }: RootState) => loading,
     opening: ({ caseContent: { opening } }: RootState) => opening,
     resultItem: ({ caseContent: { resultItem } }: RootState) => resultItem,
-    showDrop: ({ caseContent: { showDrop } }: RootState) => showDrop
+    showDrop: ({ caseContent: { showDrop } }: RootState) => showDrop,
+    exists: ({ caseContent: { exists } }: RootState) => exists,
+    openError: ({ caseContent: { openError } }: RootState) => openError,
+    currentDropSold: ({ caseContent: { resultItem: { sold } } }: RootState) => sold
 }
 
 export default caseContentSelectors;

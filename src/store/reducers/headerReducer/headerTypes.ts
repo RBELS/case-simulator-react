@@ -1,11 +1,6 @@
 import { Action } from 'redux';
 import { CaseContentItemI } from "../caseContentReducer/caseContentTypes";
 
-export interface HeaderStateI {
-    headerItems: Array<HeaderItemI>
-    lastRowId: number
-}
-
 export interface HeaderItemI extends CaseContentItemI {
     user: string
     caseid: number

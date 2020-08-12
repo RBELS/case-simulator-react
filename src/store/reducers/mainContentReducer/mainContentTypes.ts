@@ -12,7 +12,3 @@ export interface CaseI {
     avatar: string,
     price: number
 }
-
-export interface CasesStateI {
-    cases: Array<CaseI>
-}

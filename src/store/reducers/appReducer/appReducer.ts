@@ -1,10 +1,11 @@
 import { AnyAction } from 'redux';
-import { AppStateI } from './appTypes';
 import { INIT_APP } from './appActions';
 
-const initialState: AppStateI = {
+const initialState = {
     inited: false
 }
+
+export type AppStateI = typeof initialState;
 
 const appReducer = (state = initialState, action: AnyAction): AppStateI => {
     switch(action.type) {
@@ -18,4 +19,4 @@ const appReducer = (state = initialState, action: AnyAction): AppStateI => {
     }
 }
 
-export default appReducer;
+export default appReducer

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Grid, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import { Typography, makeStyles, Grid } from '@material-ui/core';
 
 const useStyles = makeStyles({
     grid: {
@@ -17,12 +16,16 @@ const useStyles = makeStyles({
     }
 });
 
-const LoadingComponent = () => {
+interface PropsI {
+    error: string
+}
+
+const Error = ({ error }: PropsI) => {
     const classes = useStyles();
 
     return <Grid className={classes.grid} item xl={8} md={9} sm={10} xs={12} >
-        <Typography color='primary' className={classes.typography}>Loading ...</Typography>
+        <Typography color='primary' className={classes.typography}>{ error }</Typography>
     </Grid>
 }
 
-export default LoadingComponent;
+export default Error;

@@ -1,19 +1,23 @@
+import { SellItemResponse } from './../store/reducers/profileReducer/profileTypes';
 import { StatusI, GetUsernameStatusI, UsernameValidateStatusI } from './apiTypes';
-import { CaseContentStateI, CaseContentItemI } from './../store/reducers/caseContentReducer/caseContentTypes';
+import { CaseContentItemI, OpenCaseResponse } from './../store/reducers/caseContentReducer/caseContentTypes';
 import { CaseI } from './../store/reducers/mainContentReducer/mainContentTypes';
 import Axios, { AxiosPromise } from "axios";
 import { HeaderItemI } from '../store/reducers/headerReducer/headerTypes';
+import { ProfileInfoI, DropItemI } from '../store/reducers/profileReducer/profileTypes';
+import { CaseContentStateI } from '../store/reducers/caseContentReducer/caseContentReducer';
 
 const instance = Axios.create({
     // baseURL: "http://25.67.248.153:8000/",
-    // baseURL: "http://25.40.173.182:5000/",
-    baseURL: "http://192.168.0.105:5000/",
+    baseURL: "http://25.40.173.182:5000/",
+    // baseURL: "http://192.168.0.106:5000/",
+    // baseURL: "http://localhost:5000/",
     withCredentials: true
 });
 
 export const getCasesAPI = (): Promise<Array<CaseI>> => instance.get(`cases`).then(res => res.data);
 export const getCaseContentAPI = (caseid: string): Promise<CaseContentStateI> => instance.get(`cases/${caseid}`).then(res => res.data);
-export const openCaseAPI = (caseid: string): Promise<CaseContentItemI> => instance.get(`open/${caseid}`).then(res => res.data);
+export const openCaseAPI = (caseid: string): Promise<OpenCaseResponse> => instance.get(`open/${caseid}`).then(res => res.data);
 export const authAPI = {
     login: (username: string, password: string): Promise<StatusI> => instance.post(`auth/login`, { username, password }).then(res => res.data),
     register: (username: string, password: string): Promise<StatusI> => instance.post(`auth/register`, { username, password }).then(res => res.data),
@@ -24,4 +28,9 @@ export const authAPI = {
 };
 export const headerAPI = {
     getHeaderItems: (last?: number): Promise<Array<HeaderItemI>> => instance.get(`public/header/${ last?.toString() ? last : '' }`).then(res => res.data)
+}
+export const profileAPI = {
+    info: (username: string): Promise<ProfileInfoI> => instance.get(`profile/info/${username}`).then(res => res.data),
+    drops: (username: string, page: number): Promise<Array<DropItemI>> => instance.get(`profile/drops/${username}/${page}`).then(res => res.data),
+    sellItem: (rowid: number): Promise<SellItemResponse> => instance.post(`items/sell`, { rowid }).then(res => res.data)
 }

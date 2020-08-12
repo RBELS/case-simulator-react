@@ -3,11 +3,12 @@ import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Grid, Typography, CardActionArea, CardMedia, Button, Card, makeStyles } from '@material-ui/core';
 import CaseItem from './CaseItem/CaseItem';
-import { setCaseContentTC, openCaseTC, stopOpenCaseTC, showDropTC } from '../../store/reducers/caseContentReducer/caseContentActions';
+import { setCaseContentTC, openCaseTC, stopOpenCaseTC, showDropTC, setOpenErrorAC } from '../../store/reducers/caseContentReducer/caseContentActions';
 import LoadingComponent from '../LoadingComponent/LoadingComponent';
 import Roulette from './Roulette/Roulette';
 import Drop from './Drop/Drop';
 import caseContentSelectors from '../../store/reducers/caseContentReducer/caseContentSelectors';
+import Error from '../Error/Error';
 
 const useStyles = makeStyles({
     main: {
@@ -53,16 +54,24 @@ const CaseContent = ({  }) => {
         loading = useSelector(caseContentSelectors.loading),
         opening = useSelector(caseContentSelectors.opening),
         resultItem = useSelector(caseContentSelectors.resultItem),
-        showDrop = useSelector(caseContentSelectors.showDrop);
-
+        showDrop = useSelector(caseContentSelectors.showDrop),
+        exists = useSelector(caseContentSelectors.exists),
+        openError = useSelector(caseContentSelectors.openError);
+    
+    const openText = opening ? 'Opening...' : openError ? openError : `Open: ${price} bucks`;
 
     useEffect(() => {
         dispatch(setCaseContentTC(caseid));
+
+        return () => {
+            dispatch(setOpenErrorAC(''));
+        }
     }, []);
 
     const handleOpen = () => {
         dispatch(openCaseTC(caseid));
     }
+    const openHandler = opening ? null : openError ? null : handleOpen;
 
     const handleShowDrop = (show?: boolean) => {
         dispatch(showDropTC(show));
@@ -72,13 +81,16 @@ const CaseContent = ({  }) => {
         dispatch(stopOpenCaseTC());
     }
 
-    return loading ?
+    return !exists ?
+    <Error error={'Case does not exist.'} />
+    :
+    loading ?
     <LoadingComponent />
     :
     <>
         <Grid item className={classes.main} xl={8} md={9} sm={10} xs={12} >
             <Typography className={classes.caseName} variant='h3' color='primary'>{name}</Typography>
-            {showDrop && <Drop setShowDrop={handleShowDrop} item={resultItem} />}
+            {showDrop && <Drop item={resultItem} />}
             {showDrop ? null : opening ?
             <Roulette setShowDrop={handleShowDrop} stopOpenCase={stopOpenCase} items={items} drop={resultItem} />
             :
@@ -88,7 +100,7 @@ const CaseContent = ({  }) => {
                 </CardActionArea>
             </Card>
             }
-            {!opening && !showDrop && <Button onClick={opening ? null : handleOpen} className={classes.openBt} variant='contained' color='primary' >{opening ? 'Opening...' : `Open: ${price} bucks`}</Button>}
+            {!opening && !showDrop && <Button onClick={openHandler} className={classes.openBt} variant='contained' color='primary' >{openText}</Button>}
         </Grid>
 
         <Grid container item className={classes.items} xl={8} md={9} sm={10} xs={12} >

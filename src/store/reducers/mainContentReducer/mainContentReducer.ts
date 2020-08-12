@@ -1,10 +1,12 @@
 import { AnyAction } from 'redux';
-import { CasesStateI, CaseI } from './mainContentTypes';
+import { CaseI } from './mainContentTypes';
 import { SET_CASES } from './mainContenActions';
 
-const initialState: CasesStateI = {
-    cases: Array<CaseI>()
+const initialState = {
+    cases: [] as Array<CaseI>
 }
+
+export type CasesStateI = typeof initialState;
 
 const mainContentReducer = (state = initialState,action: AnyAction): CasesStateI => {
     switch(action.type) {

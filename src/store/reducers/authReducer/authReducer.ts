@@ -1,12 +1,13 @@
-import { AuthStateI, } from "./authTypes";
 import { SET_LOGGED, SET_USERNAME } from "./authActions";
 import { AnyAction } from "redux";
 
-const initialState: AuthStateI = {
+const initialState = {
     logged: false,
     notResponding: false,
     username: "Pending..."
 }
+
+export type AuthStateI = typeof initialState;
 
 //No typescript in action here
 const authReducer = (state = initialState, action: AnyAction): AuthStateI=> {

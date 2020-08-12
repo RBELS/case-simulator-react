@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, CardActionArea, CardContent, CardMedia, Typography, Card, CardActions, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import { bgStyles } from '../../CaseContent/CaseItem/Backgrounds';
+import { DropItemI } from '../../../store/reducers/profileReducer/profileTypes';
+import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { sellItemTC } from '../../../store/reducers/profileReducer/profileActions';
 
 const useStyles = makeStyles({
     item: {
@@ -18,7 +22,11 @@ const useStyles = makeStyles({
         flexDirection: 'column',
     },
     card: {
-        width: '90%'
+        width: '90%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between'
     },
     container: {
         display: 'flex',
@@ -31,26 +39,62 @@ const useStyles = makeStyles({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        height: 'fit-content',
+        height: 'fit-content'
     },
     itemName: {
+    },
+    sellButton: {
+        width: 80,
+        backgroundColor: '#6cff5f',
+        '&:hover': {
+            backgroundColor: '#4eb844'
+        }
+    },
+    soldTyp: {
+        border: '1px dashed #ccc',
+        borderRadius: 5,
+        padding: 6.5,
+        fontSize: 14
+    },
+    actions: {
     }
 });
 
-const DropItem = () => {
+interface PropsI extends DropItemI {
+    myProfile: boolean
+}
+
+const DropItem = ({ avatar, caseavatar, name, price, quality, sold, caseid, rowid, myProfile }: PropsI) => {
     const classes = useStyles();
-    const bgColor = bgStyles[5];
+    const bgColor = bgStyles[quality];
+    const dispatch = useDispatch();
+
+    const [ hover, setHover ] = useState(false);
+
+    const onMouseEnter = () => {
+        setHover(true);
+    }
+
+    const onMouseLeave = () => {
+        setHover(false);
+    }
+
+    const handleSell = () => {
+        dispatch(sellItemTC(rowid));
+    }
 
     return <Grid className={classes.container} item xl={2} md={2} sm={3} xs={4} >
-        <Card className={classes.card}>
-            <CardActionArea disableRipple className={`${classes.area}`} style={bgColor}>
-                <CardMedia className={classes.itemImg} image='http://25.40.173.182:4000/img/Cobblestone/14.png'/>
-            </CardActionArea>
-            <CardContent className={classes.content}>
-                <Typography className={classes.itemName} variant='body2'>{'AWP | История о драконе'}</Typography>
-            </CardContent>
-            <CardActions>
-                <Button>$1200</Button>
+        <Card onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} className={classes.card}>
+            <NavLink style={{ color: '#000000', textDecoration: 'none' }} to={`/case/${caseid}`}>
+                <CardActionArea disableRipple className={`${classes.area}`} style={bgColor}>
+                    <CardMedia className={classes.itemImg} image={ hover ? caseavatar : avatar }/>
+                </CardActionArea>
+                <CardContent className={classes.content}>
+                    <Typography className={classes.itemName} variant='body2'>{name}</Typography>
+                </CardContent>
+            </NavLink>
+            <CardActions className={classes.actions}>
+                {sold ? <Typography className={classes.soldTyp}>Sold: ${price}</Typography> : <Button onClick={myProfile ? handleSell : null} className={classes.sellButton}>${price}</Button>}
             </CardActions>
         </Card>
     </Grid>
