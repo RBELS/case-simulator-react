@@ -1,13 +1,11 @@
 import React, { FunctionComponent } from 'react';
 import { Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import authSelectors from '../store/reducers/authReducer/authSelectors';
 
-interface PropsI {
-    logged: boolean
-}
-
-export const withAuthRedirect = (Component) => {
-    const RedirectComponent = (props: PropsI) => {
-        const { logged } = props;
+const withAuthRedirect = (Component) => {
+    const RedirectComponent = (props: any) => {
+        const logged = useSelector(authSelectors.logged);
 
         return logged ?
         <Redirect to='/' />
@@ -17,3 +15,5 @@ export const withAuthRedirect = (Component) => {
 
     return RedirectComponent;
 }
+
+export default withAuthRedirect
