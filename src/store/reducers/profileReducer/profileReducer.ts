@@ -1,13 +1,13 @@
 import { DropItemI } from './profileTypes';
 import { AnyAction } from "redux";
-import { SET_EXISTS, SET_PROFILE_INFO, SET_DROPS, SET_ITEM_SOLD, ADD_MONEY, APPEND_DROPS, SET_LODAING_DROPS, SET_NO_MORE_DROPS, SET_PAGE } from './profileActions';
+import { SET_EXISTS, SET_PROFILE_INFO, SET_DROPS, SET_ITEM_SOLD, ADD_MONEY, APPEND_DROPS, SET_LODAING_DROPS, SET_NO_MORE_DROPS, SET_PAGE, ProfileActionsType } from './profileActions';
 
 const initialState = {
     exists: false,
-    username: null as string | null,
+    username: undefined as string | undefined,
     balance: undefined as number | undefined,
     myProfile: undefined as boolean | undefined,
-    page: 1,
+    page: 1 as number | undefined,
     drops: [] as Array<DropItemI>,
     loadingDrops: false as boolean,
     noMoreDrops: false as boolean
@@ -15,7 +15,7 @@ const initialState = {
 
 export type ProfileStateI = typeof initialState;
 
-const profileReducer = (state = initialState, action: AnyAction): ProfileStateI => {
+const profileReducer = (state = initialState, action: ProfileActionsType): ProfileStateI => {
     switch(action.type) {
         case SET_EXISTS:
             return {
@@ -51,7 +51,7 @@ const profileReducer = (state = initialState, action: AnyAction): ProfileStateI 
         case ADD_MONEY:
             return {
                 ...state,
-                balance: state.balance + action.value
+                balance: (state.balance && action.value) ? state.balance  + action.value : undefined
             }
         case SET_LODAING_DROPS:
             return {

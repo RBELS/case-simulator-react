@@ -1,8 +1,8 @@
 import { Action } from 'redux';
 import { getCaseContentAPI, openCaseAPI, profileAPI } from './../../../api/api';
-import { RootState } from './../../store';
+import { RootState, InferActionTypes } from './../../store';
 import { ThunkAction } from 'redux-thunk';
-import { setCaseContentActionI, setLoadingActionI, setOpeningAction, setResultItemAction, setShowDropActionI, SetExistsActionI, CaseContentResponse, SetOpenErrorActionI, CurrentDropItemI, SetDropItemSoldActionI } from './caseContentTypes';
+import { CaseContentResponse, CurrentDropItemI } from './caseContentTypes';
 
 
 export const SET_CASE_CONTENT = 'SET_CASE_CONTENT',
@@ -14,52 +14,55 @@ export const SET_CASE_CONTENT = 'SET_CASE_CONTENT',
     SET_OPEN_ERROR = 'SET_OPEN_ERROR',
     SET_DROP_ITEM_SOLD = 'SET_DROP_ITEM_SOLD';
 
-const setCaseContentAC = (caseContent: CaseContentResponse): setCaseContentActionI => ({ type: SET_CASE_CONTENT, caseContent });
-const setLoadingAC = (loading: boolean): setLoadingActionI => ({ type: SET_LOADING, loading });
-const setOpeningAC = (opening: boolean): setOpeningAction => ({ type: SET_OPENING, opening });
-const setResultItemAC = (resultItem?: CurrentDropItemI): setResultItemAction => ({ type: SET_RESULT_ITEM, resultItem });
-const setShowDropAC = (showDrop: boolean | undefined): setShowDropActionI => ({ type: SET_SHOW_DROP, showDrop });
-const setExistsAC = (value: boolean): SetExistsActionI => ({ type: SET_EXISTS, value });
-export const setOpenErrorAC = (value?: string | null): SetOpenErrorActionI => ({ type: SET_OPEN_ERROR, value });
-const setDropItemSoldAC = (value: boolean): SetDropItemSoldActionI => ({ type: SET_DROP_ITEM_SOLD, value });
+export const caseContentActions = {
+    setCaseContentAC: (caseContent: CaseContentResponse) => ({ type: SET_CASE_CONTENT, caseContent } as const),
+    setLoadingAC: (loading: boolean) => ({ type: SET_LOADING, loading } as const),
+    setOpeningAC: (opening: boolean) => ({ type: SET_OPENING, opening } as const),
+    setResultItemAC: (resultItem: CurrentDropItemI) => ({ type: SET_RESULT_ITEM, resultItem } as const),
+    setShowDropAC: (showDrop: boolean | undefined) => ({ type: SET_SHOW_DROP, showDrop } as const),
+    setExistsAC: (value: boolean) => ({ type: SET_EXISTS, value } as const),
+    setOpenErrorAC: (value?: string | null) => ({ type: SET_OPEN_ERROR, value } as const),
+    setDropItemSoldAC: (value: boolean) => ({ type: SET_DROP_ITEM_SOLD, value } as const)
+}
+export type CaseContentActionsType = InferActionTypes<typeof caseContentActions>
 
-export const setCaseContentTC = (caseid: string): ThunkAction<void, RootState, unknown, Action<string>> => async dispatch => {
-    dispatch(setLoadingAC(true));
+export const setCaseContentTC = (caseid: string): ThunkAction<void, RootState, unknown, CaseContentActionsType> => async dispatch => {
+    dispatch(caseContentActions.setLoadingAC(true));
     const content: CaseContentResponse = await getCaseContentAPI(caseid);
     
     if(content.error) {
-        dispatch(setExistsAC(false));
+        dispatch(caseContentActions.setExistsAC(false));
         return;
     }
-    dispatch(setExistsAC(true));
-    dispatch(setCaseContentAC(content));
-    dispatch(setLoadingAC(false));
+    dispatch(caseContentActions.setExistsAC(true));
+    dispatch(caseContentActions.setCaseContentAC(content));
+    dispatch(caseContentActions.setLoadingAC(false));
 }
 
-export const openCaseTC = (caseid: string): ThunkAction<void, RootState, unknown, Action<string>> => async dispatch => {
+export const openCaseTC = (caseid: string): ThunkAction<void, RootState, unknown, CaseContentActionsType> => async dispatch => {
     const { item, success, error } = await openCaseAPI(caseid);
     if(!success) {
-        dispatch(setOpenErrorAC(error));
+        dispatch(caseContentActions.setOpenErrorAC(error));
         return;
     }
-    dispatch(setOpenErrorAC(null));
-    dispatch(setResultItemAC(item));
-    dispatch(setOpeningAC(true));
+    dispatch(caseContentActions.setOpenErrorAC(null));
+    dispatch(caseContentActions.setResultItemAC(item));
+    dispatch(caseContentActions.setOpeningAC(true));
 }
 
-export const stopOpenCaseTC = (): ThunkAction<void, RootState, unknown, Action<string>> => async dispatch => {
-    dispatch(setOpeningAC(false));
+export const stopOpenCaseTC = (): ThunkAction<void, RootState, unknown, CaseContentActionsType> => async dispatch => {
+    dispatch(caseContentActions.setOpeningAC(false));
 }
 
-export const showDropTC = (show: boolean | undefined): ThunkAction<void, RootState, unknown, Action<string>> => async dispatch => {
-    dispatch(setShowDropAC(show));
+export const showDropTC = (show: boolean | undefined): ThunkAction<void, RootState, unknown, CaseContentActionsType> => async dispatch => {
+    dispatch(caseContentActions.setShowDropAC(show));
 }
 
-export const sellItemImmedaiteTC = (rowid: number): ThunkAction<void, RootState, unknown, Action<string>> => async dispatch => {
+export const sellItemImmedaiteTC = (rowid: number): ThunkAction<void, RootState, unknown, CaseContentActionsType> => async dispatch => {
     const { success, error, price } = await profileAPI.sellItem(rowid);
     if(!success) {
         alert(error);
         return;
     }
-    dispatch(setDropItemSoldAC(true));
+    dispatch(caseContentActions.setDropItemSoldAC(true));
 }

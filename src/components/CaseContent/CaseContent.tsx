@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Grid, Typography, CardActionArea, CardMedia, Button, Card, makeStyles } from '@material-ui/core';
 import CaseItem from './CaseItem/CaseItem';
-import { setCaseContentTC, openCaseTC, stopOpenCaseTC, showDropTC, setOpenErrorAC } from '../../store/reducers/caseContentReducer/caseContentActions';
+import { setCaseContentTC, openCaseTC, stopOpenCaseTC, showDropTC, caseContentActions } from '../../store/reducers/caseContentReducer/caseContentActions';
 import LoadingComponent from '../LoadingComponent/LoadingComponent';
 import Roulette from './Roulette/Roulette';
 import Drop from './Drop/Drop';
@@ -64,7 +64,7 @@ const CaseContent = ({  }) => {
         dispatch(setCaseContentTC(caseid));
 
         return () => {
-            dispatch(setOpenErrorAC(''));
+            dispatch(caseContentActions.setOpenErrorAC(''));
         }
     }, []);
 

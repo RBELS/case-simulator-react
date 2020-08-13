@@ -1,5 +1,4 @@
-import { SET_LOGGED, SET_USERNAME } from "./authActions";
-import { AnyAction } from "redux";
+import { SET_LOGGED, SET_USERNAME, AuthActionsType } from "./authActions";
 
 const initialState = {
     logged: false,
@@ -9,8 +8,7 @@ const initialState = {
 
 export type AuthStateI = typeof initialState;
 
-//No typescript in action here
-const authReducer = (state = initialState, action: AnyAction): AuthStateI=> {
+const authReducer = (state = initialState, action: AuthActionsType): AuthStateI=> {
     switch(action.type) {
         case SET_LOGGED:
             return {

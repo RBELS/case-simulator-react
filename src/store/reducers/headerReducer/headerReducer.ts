@@ -1,6 +1,5 @@
 import { HeaderItemI } from './headerTypes';
-import { AnyAction } from "redux";
-import { SET_LAST_ROW_ID, PUSH_HEADER_ITEMS } from "./headerActions";
+import { SET_LAST_ROW_ID, PUSH_HEADER_ITEMS, HeaderActionsType } from "./headerActions";
 
 const initialState = {
     headerItems: [] as Array<HeaderItemI>,
@@ -9,7 +8,7 @@ const initialState = {
 
 export type HeaderStateI = typeof initialState;
 
-const headerReducer = (state = initialState, action: AnyAction): HeaderStateI => {
+const headerReducer = (state = initialState, action: HeaderActionsType): HeaderStateI => {
     switch(action.type) {
         case SET_LAST_ROW_ID:
             return {

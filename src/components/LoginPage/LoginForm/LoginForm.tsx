@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Grid, Button, Typography } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
@@ -34,14 +34,12 @@ const maxLength20 = maxLength(20);
 const minLength8 = minLength(8);
 const minLength3 = minLength(3);
 
-interface PropsI extends InjectedFormProps {
+interface PropsI extends InjectedFormProps<LoginFormDataI> {
     // error: string
 }
 
-const LoginForm = ({ handleSubmit, error, ...props }: PropsI) => {
+const LoginForm: FC<PropsI> = ({ handleSubmit, error, ...props }) => {
     const classes = useStyles();
-
-    console.log(props);
 
     return <form onSubmit={handleSubmit} name='login' className={classes.form}>
         <Grid item className={classes.innerGrid} xl={5} md={6} sm={10} xs={12}>

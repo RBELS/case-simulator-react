@@ -1,24 +1,24 @@
 import { AnyAction } from 'redux';
-import { CaseContentItemI, CurrentDropItemI } from './caseContentTypes';
-import { SET_CASE_CONTENT, SET_LOADING, SET_OPENING, SET_RESULT_ITEM, SET_SHOW_DROP, SET_EXISTS, SET_OPEN_ERROR, SET_DROP_ITEM_SOLD } from './caseContentActions';
+import {CaseContentItemI, CurrentDropItemI} from './caseContentTypes';
+import { SET_CASE_CONTENT, SET_LOADING, SET_OPENING, SET_RESULT_ITEM, SET_SHOW_DROP, SET_EXISTS, SET_OPEN_ERROR, SET_DROP_ITEM_SOLD, CaseContentActionsType } from './caseContentActions';
 
 const initialState = {
-    id: null as number | null,
-    name: null as string | null,
+    id: undefined as number | undefined,
+    name: undefined as string | undefined,
     avatar: undefined as string | undefined,
-    price: null as number | null,
+    price: undefined as number | undefined,
     items: [] as Array<CaseContentItemI>,
     loading: true,
     opening: false,
-    showDrop: false,
-    resultItem: null as unknown as CurrentDropItemI,
+    showDrop: false as boolean | undefined,
+    resultItem: {} as CurrentDropItemI,
     exists: true,
-    openError: null as string | null
+    openError: undefined as string | null | undefined
 }
 
 export type CaseContentStateI = typeof initialState;
 
-const caseContentReducer = (state = initialState, action: AnyAction): CaseContentStateI => {
+const caseContentReducer = (state = initialState, action: CaseContentActionsType): CaseContentStateI => {
     switch(action.type) {
         case SET_CASE_CONTENT:
             return {
@@ -60,7 +60,7 @@ const caseContentReducer = (state = initialState, action: AnyAction): CaseConten
                 ...state,
                 resultItem: {
                     ...state.resultItem,
-                    sold: action.value
+                    sold: true
                 }
             }
         default:
