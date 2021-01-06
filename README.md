@@ -1,5 +1,19 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Overview
+
+Easy to add new cases through database.
+
+![Main Page Image](https://github.com/RBELS/case-simulator-react/blob/master/previewImages/main-page.jpg?raw=true)
+
+Nice smooth roulette.
+
+![Case Content Image](https://github.com/RBELS/case-simulator-react/blob/master/image.jpg/case-opening.jpg?raw=true)
+
+Can sell items using profile page.
+
+![Profile Image](https://github.com/RBELS/case-simulator-react/blob/master/image.jpg/profile-page.jpg?raw=true)
+
 ## Available Scripts
 
 In the project directory, you can run:
