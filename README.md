@@ -8,11 +8,11 @@ Easy to add new cases through database.
 
 Nice smooth roulette.
 
-![Case Content Image](https://github.com/RBELS/case-simulator-react/blob/master/image.jpg/case-opening.jpg?raw=true)
+![Case Content Image](https://github.com/RBELS/case-simulator-react/blob/master/previewImages/case-opening.jpg?raw=true)
 
 Can sell items using profile page.
 
-![Profile Image](https://github.com/RBELS/case-simulator-react/blob/master/image.jpg/profile-page.jpg?raw=true)
+![Profile Image](https://github.com/RBELS/case-simulator-react/blob/master/previewImages/profile-page.jpg?raw=true)
 
 ## Available Scripts
 
