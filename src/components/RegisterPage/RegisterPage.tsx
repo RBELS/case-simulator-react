@@ -15,7 +15,7 @@ interface PropsI {
     
 }
 
-const RegisterPage = ({  }: PropsI) => {
+const RegisterPage: React.FC<PropsI> = ({  }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
@@ -25,7 +25,7 @@ const RegisterPage = ({  }: PropsI) => {
 
     return <Grid item className={classes.grid} xl={8} md={9} sm={10} xs={12}>
         <RegisterForm onSubmit={handleRegisterSubmit} />
-    </Grid>
+    </Grid>;
 }
 
 export default withAuthRedirect(RegisterPage)

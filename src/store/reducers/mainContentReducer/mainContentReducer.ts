@@ -1,5 +1,6 @@
 import {CaseI} from './mainContentTypes';
 import { SET_CASES, MainContentActionsType } from './mainContenActions';
+import { Reducer } from 'react';
 
 const initialState = {
     cases: [] as Array<CaseI>

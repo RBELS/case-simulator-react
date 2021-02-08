@@ -1,5 +1,6 @@
 import { HeaderItemI } from './headerTypes';
 import { SET_LAST_ROW_ID, PUSH_HEADER_ITEMS, HeaderActionsType } from "./headerActions";
+import { Reducer } from 'react';
 
 const initialState = {
     headerItems: [] as Array<HeaderItemI>,

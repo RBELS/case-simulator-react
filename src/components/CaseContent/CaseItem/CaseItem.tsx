@@ -38,7 +38,7 @@ const useStyles = makeStyles({
 
 
 
-const CaseItem = ({ avatar, id, name, price, quality }: CaseContentItemI) => {
+const CaseItem: React.FC<CaseContentItemI> = ({ avatar, id, name, price, quality }) => {
     const classes = useStyles();
     const bgColor = bgStyles[quality];
 

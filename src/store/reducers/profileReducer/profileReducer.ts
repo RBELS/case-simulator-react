@@ -1,6 +1,7 @@
 import { DropItemI } from './profileTypes';
 import { AnyAction } from "redux";
 import { SET_EXISTS, SET_PROFILE_INFO, SET_DROPS, SET_ITEM_SOLD, ADD_MONEY, APPEND_DROPS, SET_LODAING_DROPS, SET_NO_MORE_DROPS, SET_PAGE, ProfileActionsType } from './profileActions';
+import { Reducer } from 'react';
 
 const initialState = {
     exists: false,

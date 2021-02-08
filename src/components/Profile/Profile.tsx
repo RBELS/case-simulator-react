@@ -47,7 +47,7 @@ interface PropsI {
 
 }
 
-const Profile = ({  }: PropsI) => {
+const Profile: React.FC<PropsI> = ({  }) => {
     const classes = useStyles();
     const { username } = useParams<ProfileParamsI>();
     const dispatch = useDispatch();

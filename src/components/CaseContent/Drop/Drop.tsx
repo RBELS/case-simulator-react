@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Card, CardActionArea, CardMedia, Typography, Button } from '@material-ui/core';
-import { CaseContentItemI, CurrentDropItemI } from '../../../store/reducers/caseContentReducer/caseContentTypes';
+import { CurrentDropItemI } from '../../../store/reducers/caseContentReducer/caseContentTypes';
 import { makeStyles } from '@material-ui/styles';
 import { bgStyles } from '../CaseItem/Backgrounds';
 import { useDispatch, useSelector } from 'react-redux';
@@ -36,7 +36,7 @@ interface PropsI {
     item: CurrentDropItemI
 }
 
-const Drop = ({ item: { avatar, id, name, price, quality, rowid } }: PropsI) => {
+const Drop: React.FC<PropsI> = ({ item: { avatar, id, name, price, quality, rowid } }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const bgColor = bgStyles[quality];

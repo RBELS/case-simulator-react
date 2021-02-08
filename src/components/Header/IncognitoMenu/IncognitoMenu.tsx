@@ -6,7 +6,7 @@ interface PropsI {
     handleClose: () => void
 }
 
-const IncognitoMenu = ({ handleClose }: PropsI) => {
+const IncognitoMenu: React.FC<PropsI> = ({ handleClose }) => {
     return <div>
         <NavLink style={{ textDecoration: "none", color: "#000" }} to="/login">
             <MenuItem onClick={handleClose}>Sign Up</MenuItem>

@@ -34,10 +34,9 @@ const useStyles = makeStyles({
 });
 
 interface PropsI extends InjectedFormProps {
-    // handleSubmit: () => void
 }
 
-const RegisterForm = ({ handleSubmit, ...props }: PropsI) => {
+const RegisterForm: React.FC<PropsI> = ({ handleSubmit, ...props }) => {
     const classes = useStyles();
 
     return <form onSubmit={handleSubmit} name='register' className={classes.form}>

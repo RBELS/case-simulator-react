@@ -1,6 +1,7 @@
 import { AnyAction } from 'redux';
 import {CaseContentItemI, CurrentDropItemI} from './caseContentTypes';
 import { SET_CASE_CONTENT, SET_LOADING, SET_OPENING, SET_RESULT_ITEM, SET_SHOW_DROP, SET_EXISTS, SET_OPEN_ERROR, SET_DROP_ITEM_SOLD, CaseContentActionsType } from './caseContentActions';
+import { Reducer } from 'react';
 
 const initialState = {
     id: undefined as number | undefined,

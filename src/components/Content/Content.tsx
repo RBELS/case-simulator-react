@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 interface PropsI {
 }
 
-const Content = ({  }: PropsI) => {
+const Content: React.FC<PropsI> = ({  }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
 

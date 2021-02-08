@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { TextField } from '@material-ui/core';
 import { WrappedFieldProps } from "redux-form";
 import { makeStyles } from '@material-ui/styles';
@@ -13,7 +13,7 @@ const useStyles = makeStyles({
   },
 });
 
-const RenderTextField: FC<WrappedFieldProps> = ({ input, meta: { touched, invalid, error, visited }, ...custom } ) => {
+const RenderTextField: React.FC<WrappedFieldProps> = ({ input, meta: { touched, invalid, error, visited }, ...custom } ) => {
     const classes = useStyles();
 
     return <div className={classes.fieldContainer}>

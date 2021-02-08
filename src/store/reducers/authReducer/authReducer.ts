@@ -1,4 +1,5 @@
-import { SET_LOGGED, SET_USERNAME, AuthActionsType } from "./authActions";
+import { Reducer } from "react";
+import { SET_LOGGED, AuthActionsType } from "./authActions";
 
 const initialState = {
     logged: false,
@@ -8,14 +9,14 @@ const initialState = {
 
 export type AuthStateI = typeof initialState;
 
-const authReducer = (state = initialState, action: AuthActionsType): AuthStateI=> {
+const authReducer = (state = initialState, action: AuthActionsType): AuthStateI => {
     switch(action.type) {
         case SET_LOGGED:
             return {
                 ...state,
                 logged: action.logged
             }
-        case SET_USERNAME:
+        case "SET_USERNAME":
             return {
                 ...state,
                 username: action.username

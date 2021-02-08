@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
 import LoginForm, { LoginFormDataI } from './LoginForm/LoginForm';
@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 interface PropsI {
 }
 
-const LoginPage: FC<PropsI> = ({  }) => {
+const LoginPage: React.FC<PropsI> = ({  }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
 

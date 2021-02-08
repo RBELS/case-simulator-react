@@ -64,7 +64,7 @@ interface PropsI extends DropItemI {
     myProfile?: boolean
 }
 
-const DropItem = ({ avatar, caseavatar, name, price, quality, sold, caseid, rowid, myProfile }: PropsI) => {
+const DropItem: React.FC<PropsI> = ({ avatar, caseavatar, name, price, quality, sold, caseid, rowid, myProfile }) => {
     const classes = useStyles();
     const bgColor = bgStyles[quality];
     const dispatch = useDispatch();

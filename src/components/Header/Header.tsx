@@ -42,7 +42,7 @@ const useStyles = makeStyles({
 interface PropsI {
 }
 
-const Header = ({  }: PropsI) => {
+const Header: React.FC<PropsI> = ({  }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
 

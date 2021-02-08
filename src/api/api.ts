@@ -9,9 +9,9 @@ import { CaseContentStateI } from '../store/reducers/caseContentReducer/caseCont
 
 const instance = Axios.create({
     // baseURL: "http://25.67.248.153:8000/",
-    baseURL: "http://25.40.173.182:5000/",
+    // baseURL: "http://25.40.173.182:5000/",
     // baseURL: "http://192.168.0.106:5000/",
-    // baseURL: "http://localhost:5000/",
+    baseURL: "http://192.168.1.34:5000/",
     withCredentials: true
 });
 

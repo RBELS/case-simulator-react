@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardActionArea, CardMedia, CardContent, Typography, makeStyles } from '@material-ui/core';
+import { Card, CardActionArea, CardMedia, makeStyles } from '@material-ui/core';
 import { bgStyles } from '../../CaseItem/Backgrounds';
 import { CaseContentItemI } from '../../../../store/reducers/caseContentReducer/caseContentTypes';
 
@@ -24,7 +24,7 @@ interface PropsI extends CaseContentItemI {
 
 }
 
-const RouletteItem = ({ avatar, quality }: PropsI) => {
+const RouletteItem: React.FC<PropsI> = ({ avatar, quality }) => {
     const bgColor = bgStyles[quality];
     const classes = useStyles();
 

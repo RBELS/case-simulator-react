@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     }
 });
 
-const LoadingComponent = () => {
+const LoadingComponent: React.FC = () => {
     const classes = useStyles();
 
     return <Grid className={classes.grid} item xl={8} md={9} sm={10} xs={12} >

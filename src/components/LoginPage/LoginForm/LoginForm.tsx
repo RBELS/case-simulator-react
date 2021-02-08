@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Grid, Button, Typography } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
@@ -35,10 +35,10 @@ const minLength8 = minLength(8);
 const minLength3 = minLength(3);
 
 interface PropsI extends InjectedFormProps<LoginFormDataI> {
-    // error: string
+    error: string
 }
 
-const LoginForm: FC<PropsI> = ({ handleSubmit, error, ...props }) => {
+const LoginForm: React.FC<PropsI> = ({ handleSubmit, error, ...props }) => {
     const classes = useStyles();
 
     return <form onSubmit={handleSubmit} name='login' className={classes.form}>

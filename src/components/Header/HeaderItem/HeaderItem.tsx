@@ -5,17 +5,6 @@ import { Card, CardActionArea, CardMedia, Typography, CardContent } from '@mater
 import { bgStyles } from '../../CaseContent/CaseItem/Backgrounds';
 import { NavLink } from 'react-router-dom';
 
-// const useStyles = makeStyles({
-//     testItem: {
-//         width: 70,
-//         minWidth: 70,
-//         height: 70,
-//         margin: 5,
-//         borderRadius: '10%',
-//         backgroundColor: 'white'
-//     },
-// });
-
 const useStyles = makeStyles({
     itemImg: {
         width: 56,
@@ -57,7 +46,7 @@ interface PropsI extends HeaderItemI {
 
 }
 
-const HeaderItem = ({ avatar, quality, caseavatar, name, user }: PropsI) => {
+const HeaderItem: React.FC<PropsI> = ({ avatar, quality, caseavatar, name, user }) => {
     const [ hover, setHover ] = useState(false);
 
     const onMouseEnter = () => {

@@ -4,7 +4,7 @@ import { serverErrorAlert } from './../utils/alerts';
 import { authAPI } from './../../../api/api';
 import { RootState, InferActionTypes } from './../../store';
 import { ThunkAction } from 'redux-thunk';
-import { reset, stopSubmit, StopSubmitAction, FormErrors } from 'redux-form';
+import { reset, stopSubmit } from 'redux-form';
 
 export const SET_LOGGED = 'SET_LOGGED', SET_USERNAME = "SET_USERNAME";
 

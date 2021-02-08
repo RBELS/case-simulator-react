@@ -20,7 +20,7 @@ interface PropsI {
     error: string
 }
 
-const Error = ({ error }: PropsI) => {
+const Error: React.FC<PropsI> = ({ error }) => {
     const classes = useStyles();
 
     return <Grid className={classes.grid} item xl={8} md={9} sm={10} xs={12} >

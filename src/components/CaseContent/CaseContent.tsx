@@ -42,7 +42,7 @@ interface CaseContentParamsI {
     caseid: string
 }
 
-const CaseContent = ({  }) => {
+const CaseContent: React.FC = ({  }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const { caseid } = useParams<CaseContentParamsI>();
@@ -71,7 +71,6 @@ const CaseContent = ({  }) => {
     const handleOpen = (event?: any) => {
         dispatch(openCaseTC(caseid));
     }
-    // const openHandler = opening ? null : openError ? null : handleOpen;
 
     const handleShowDrop = (show?: boolean) => {
         dispatch(showDropTC(show));

@@ -11,9 +11,7 @@ const useStyles = makeStyles(theme => ({
         height: "100%",
     },
     caseContainer: {
-        // backgroundColor: "beige",
         width: "100%",
-        // height: 300,
         display: "inline-block",
         padding: 20
     },
@@ -37,7 +35,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const Case = ({ avatar, id, name, price }: CaseI) => {
+const Case: React.FC<CaseI> = ({ avatar, id, name, price }) => {
     const classes = useStyles();
 
     return <Grid className={classes.caseContainer} item xs={12} sm={6} md={3} xl={3} >

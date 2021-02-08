@@ -1,4 +1,4 @@
-import React, { Component, Ref, RefObject } from 'react';
+import React, { Component, RefObject } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Card } from '@material-ui/core';
 import RouletteItem from './RouletteItem/RouletteItem';
