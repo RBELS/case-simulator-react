@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import DropItem from './DropItem/DropItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { profileSelectors } from '../../store/reducers/profileReducer/profileSelectors';
-import { setProfileInfoTC, showMoreTC } from '../../store/reducers/profileReducer/profileActions';
+import { addBalanceTC, setProfileInfoTC, showMoreTC } from '../../store/reducers/profileReducer/profileActions';
 
 const useStyles = makeStyles({
     main: {
@@ -69,6 +69,10 @@ const Profile: React.FC<PropsI> = ({  }) => {
         dispatch(showMoreTC(usernameStore, page));
     }
 
+    const onAddButtonClick = () => {
+        dispatch(addBalanceTC());
+    }
+
     return <Grid item className={classes.main} xl={8} md={9} sm={10} xs={12}>
         {
         exists ? <>
@@ -76,7 +80,7 @@ const Profile: React.FC<PropsI> = ({  }) => {
             <br />
             {myProfile && balance && <Typography color='primary' variant='h3' className={classes.typ}>
                 Balance: {Math.floor(balance)} bucks
-                <IconButton className={classes.add}>
+                <IconButton className={classes.add} onClick={onAddButtonClick}>
                     <AddBoxOutlined color='primary' />
                 </IconButton>
             </Typography>}

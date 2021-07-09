@@ -21,10 +21,10 @@ export const profileActions = {
     setDropsAC:(drops: Array<DropItemI>) => ({ type: SET_DROPS, drops } as const),
     appendDropsAC:(drops: Array<DropItemI>) => ({ type: APPEND_DROPS, drops } as const),
     setItemSoldAC:(rowid: number) => ({ type: SET_ITEM_SOLD, rowid } as const),
-    addMoneyAC:(value?: number) => ({ type: ADD_MONEY, value } as const),
+    addMoneyAC:(value: number) => ({ type: ADD_MONEY, value } as const),
     setLoadingDropsAC:(value: boolean) => ({ type: SET_LODAING_DROPS, value } as const),
     setNoMoreDropsAC:(value: boolean) => ({ type: SET_NO_MORE_DROPS, value } as const),
-    setPageAC:(value?: number) => ({ type: SET_PAGE, value } as const)
+    setPageAC:(value?: number) => ({ type: SET_PAGE, value } as const),
 }
 export type ProfileActionsType = InferActionTypes<typeof profileActions>
 
@@ -51,7 +51,7 @@ export const sellItemTC = (rowid: number): ThunkAction<void, RootState, unknown,
         return;
     }
     dispatch(profileActions.setItemSoldAC(rowid));
-    dispatch(profileActions.addMoneyAC(price));
+    dispatch(profileActions.addMoneyAC(price!));
 }
 
 export const showMoreTC = (username?: string | null, page?: number): ThunkAction<void, RootState, unknown, ProfileActionsType> => async dispatch => {
@@ -66,5 +66,15 @@ export const showMoreTC = (username?: string | null, page?: number): ThunkAction
         dispatch(profileActions.setPageAC(page+1));
         dispatch(profileActions.appendDropsAC(newDrops));
         dispatch(profileActions.setLoadingDropsAC(false));
+    }
+}
+
+export const addBalanceTC = (): ThunkAction<void, RootState, unknown, ProfileActionsType> => async dispatch => {
+    const { success, error, addNumber } = await profileAPI.addBalance();
+    if(success) {
+        debugger
+        dispatch(profileActions.addMoneyAC(addNumber!));
+    } else {
+        alert(error);
     }
 }

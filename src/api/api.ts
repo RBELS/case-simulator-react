@@ -1,5 +1,5 @@
 import { SellItemResponse } from './../store/reducers/profileReducer/profileTypes';
-import { StatusI, GetUsernameStatusI, UsernameValidateStatusI } from './apiTypes';
+import { StatusI, GetUsernameStatusI, UsernameValidateStatusI, AddBalanceStatusI } from './apiTypes';
 import { CaseContentItemI, OpenCaseResponse, CaseContentResponse } from './../store/reducers/caseContentReducer/caseContentTypes';
 import { CaseI } from './../store/reducers/mainContentReducer/mainContentTypes';
 import Axios, { AxiosPromise } from "axios";
@@ -8,9 +8,6 @@ import { ProfileInfoI, DropItemI } from '../store/reducers/profileReducer/profil
 import { CaseContentStateI } from '../store/reducers/caseContentReducer/caseContentReducer';
 
 const instance = Axios.create({
-    // baseURL: "http://25.67.248.153:8000/",
-    // baseURL: "http://25.40.173.182:5000/",
-    // baseURL: "http://192.168.0.106:5000/",
     baseURL: "http://192.168.1.34:5000/",
     withCredentials: true
 });
@@ -32,5 +29,6 @@ export const headerAPI = {
 export const profileAPI = {
     info: (username: string): Promise<ProfileInfoI> => instance.get(`profile/info/${username}`).then(res => res.data),
     drops: (username?: string | null, page?: number): Promise<Array<DropItemI>> => instance.get(`profile/drops/${username}/${page}`).then(res => res.data),
-    sellItem: (rowid: number): Promise<SellItemResponse> => instance.post(`items/sell`, { rowid }).then(res => res.data)
+    sellItem: (rowid: number): Promise<SellItemResponse> => instance.post(`items/sell`, { rowid }).then(res => res.data),
+    addBalance: (): Promise<AddBalanceStatusI> => instance.post('profile/balance/').then(res => res.data)
 }

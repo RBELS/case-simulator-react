@@ -1,8 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
-import { Grid, Typography, Button } from '@material-ui/core';
-import { Field, reduxForm, ReduxFormContext, InjectedFormProps } from 'redux-form';
-import { NavLink } from 'react-router-dom';
+import { Grid, Button } from '@material-ui/core';
+import { Field, reduxForm, InjectedFormProps } from 'redux-form';
 import RenderTextField from '../../LoginPage/LoginForm/RenderField';
 import { maxLength, minLength, requiredField, passwordsMatch, registerFormAsyncValidate } from '../../../store/validators/FormValidators';
 

@@ -1,7 +1,10 @@
-import { HeaderItemI } from "../store/reducers/headerReducer/headerTypes";
-
 export interface StatusI {
     success: boolean
+    error?: string
+}
+
+export interface AddBalanceStatusI extends StatusI {
+    addNumber?: number
 }
 
 export interface GetUsernameStatusI {
@@ -13,7 +16,3 @@ export interface UsernameValidateStatusI {
     success: boolean
     exists: boolean
 }
-
-//no reducer yet
-
-//no reducer yet

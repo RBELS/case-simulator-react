@@ -1,4 +1,3 @@
-
 export interface CaseContentResponse {
     id: number | undefined
     name: string 

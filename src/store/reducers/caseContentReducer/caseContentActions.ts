@@ -1,4 +1,3 @@
-import { Action } from 'redux';
 import { getCaseContentAPI, openCaseAPI, profileAPI } from './../../../api/api';
 import { RootState, InferActionTypes } from './../../store';
 import { ThunkAction } from 'redux-thunk';

@@ -9,7 +9,7 @@ export const minLength = (min: number) => (text:string): string | undefined => {
 }
 
 export const requiredField = (text: string): string | undefined => {
-    if(!text || text.length == 0) return 'This field is required.';
+    if(!text || text.length === 0) return 'This field is required.';
 }
 
 export const passwordsMatch = ( value: string, allValues: registerFormData ): string | undefined => {

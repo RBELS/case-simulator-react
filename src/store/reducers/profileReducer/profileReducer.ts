@@ -1,7 +1,5 @@
 import { DropItemI } from './profileTypes';
-import { AnyAction } from "redux";
 import { SET_EXISTS, SET_PROFILE_INFO, SET_DROPS, SET_ITEM_SOLD, ADD_MONEY, APPEND_DROPS, SET_LODAING_DROPS, SET_NO_MORE_DROPS, SET_PAGE, ProfileActionsType } from './profileActions';
-import { Reducer } from 'react';
 
 const initialState = {
     exists: false,
@@ -49,10 +47,15 @@ const profileReducer = (state = initialState, action: ProfileActionsType): Profi
                     drop
                 })
             }
+        // case ADD_MONEY:
+        //     return {
+        //         ...state,
+        //         balance: (state.balance && action.value) ? state.balance  + action.value : undefined
+        //     }
         case ADD_MONEY:
             return {
                 ...state,
-                balance: (state.balance && action.value) ? state.balance  + action.value : undefined
+                balance: state.balance! + action.value
             }
         case SET_LODAING_DROPS:
             return {

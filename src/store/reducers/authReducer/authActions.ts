@@ -1,5 +1,4 @@
 import { Action } from 'redux';
-import { StatusI } from './../../../api/apiTypes';
 import { serverErrorAlert } from './../utils/alerts';
 import { authAPI } from './../../../api/api';
 import { RootState, InferActionTypes } from './../../store';
