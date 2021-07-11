@@ -3,10 +3,10 @@ import { SET_EXISTS, SET_PROFILE_INFO, SET_DROPS, SET_ITEM_SOLD, ADD_MONEY, APPE
 
 const initialState = {
     exists: false,
-    username: undefined as string | undefined,
+    username: '' as string,
     balance: undefined as number | undefined,
     myProfile: undefined as boolean | undefined,
-    page: 1 as number | undefined,
+    page: 1 as number,
     drops: [] as Array<DropItemI>,
     loadingDrops: false as boolean,
     noMoreDrops: false as boolean

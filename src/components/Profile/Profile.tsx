@@ -6,6 +6,7 @@ import DropItem from './DropItem/DropItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { profileSelectors } from '../../store/reducers/profileReducer/profileSelectors';
 import { addBalanceTC, setProfileInfoTC, showMoreTC } from '../../store/reducers/profileReducer/profileActions';
+import SortItemsForm from './SortItemsForm/SortItemsForm';
 
 const useStyles = makeStyles({
     main: {
@@ -86,6 +87,7 @@ const Profile: React.FC<PropsI> = ({  }) => {
             </Typography>}
             <br />
             <Typography color='primary' variant='h3' className={classes.typ}>Drops:</Typography>
+            <SortItemsForm />
             <Grid container>
                 {drops.map(drop => <DropItem {...drop} key={drop.rowid} myProfile={myProfile} />)}
             </Grid>

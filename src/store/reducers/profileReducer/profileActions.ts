@@ -16,7 +16,7 @@ export const
     SET_PAGE = 'SET_PAGE';
 
 export const profileActions = {
-    setProfileInfoAC:(username?: string, balance?: number, myProfile?: boolean) => ({ type: SET_PROFILE_INFO, payload: { username, balance, myProfile } } as const),
+    setProfileInfoAC:(username: string, balance?: number, myProfile?: boolean) => ({ type: SET_PROFILE_INFO, payload: { username, balance, myProfile } } as const),
     setExistsAC:(value: boolean) => ({ type: SET_EXISTS, value } as const),
     setDropsAC:(drops: Array<DropItemI>) => ({ type: SET_DROPS, drops } as const),
     appendDropsAC:(drops: Array<DropItemI>) => ({ type: APPEND_DROPS, drops } as const),
@@ -24,7 +24,7 @@ export const profileActions = {
     addMoneyAC:(value: number) => ({ type: ADD_MONEY, value } as const),
     setLoadingDropsAC:(value: boolean) => ({ type: SET_LODAING_DROPS, value } as const),
     setNoMoreDropsAC:(value: boolean) => ({ type: SET_NO_MORE_DROPS, value } as const),
-    setPageAC:(value?: number) => ({ type: SET_PAGE, value } as const),
+    setPageAC:(value: number) => ({ type: SET_PAGE, value } as const),
 }
 export type ProfileActionsType = InferActionTypes<typeof profileActions>
 
@@ -39,7 +39,7 @@ export const setProfileInfoTC = (usernameParam: string): ThunkAction<void, RootS
         dispatch(profileActions.setNoMoreDropsAC(true));
     }
 
-    dispatch(profileActions.setProfileInfoAC(username, balance, myProfile));
+    dispatch(profileActions.setProfileInfoAC(username!, balance, myProfile));
     dispatch(profileActions.setDropsAC(drops));
     dispatch(profileActions.setExistsAC(true));
 }
@@ -54,7 +54,7 @@ export const sellItemTC = (rowid: number): ThunkAction<void, RootState, unknown,
     dispatch(profileActions.addMoneyAC(price!));
 }
 
-export const showMoreTC = (username?: string | null, page?: number): ThunkAction<void, RootState, unknown, ProfileActionsType> => async dispatch => {
+export const showMoreTC = (username: string, page: number): ThunkAction<void, RootState, unknown, ProfileActionsType> => async dispatch => {
     dispatch(profileActions.setLoadingDropsAC(true));
     let newDrops: Array<DropItemI> = [];
     if(page) {
