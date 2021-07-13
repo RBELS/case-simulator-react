@@ -16,3 +16,9 @@ export interface SellItemResponse {
     error?: string
     price?: number
 }
+
+export interface SortItemsFormFiltersI {
+    rarity: number
+    caseId: number
+    notSold: boolean
+}

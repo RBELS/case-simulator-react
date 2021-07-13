@@ -62,12 +62,14 @@ const Profile: React.FC<PropsI> = ({  }) => {
     const page = useSelector(profileSelectors.page);
     const noMoreDrops = useSelector(profileSelectors.noMoreDrops);
 
+    const filters = useSelector(profileSelectors.filters);
+
     useEffect(() => {
         dispatch(setProfileInfoTC(username));
     }, [username]);
 
     const handleShowMore = () => {
-        dispatch(showMoreTC(usernameStore, page));
+        dispatch(showMoreTC(usernameStore, page, filters));
     }
 
     const onAddButtonClick = () => {

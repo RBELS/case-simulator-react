@@ -1,6 +1,8 @@
 import { FormControl, FormGroup, InputLabel, makeStyles, MenuItem, Select, Checkbox, FormControlLabel } from '@material-ui/core';
-import React, { ChangeEventHandler, FormEvent, FormEventHandler, useEffect, useState } from 'react';
-import { Form } from 'redux-form';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { profileActions, resetDropItemsTC } from '../../../store/reducers/profileReducer/profileActions';
+import { profileSelectors } from '../../../store/reducers/profileReducer/profileSelectors';
 
 const useStyles = makeStyles({
     formContainer: {
@@ -28,22 +30,32 @@ export interface SortItemsFormFiltersI {
 
 const SortItemsForm: React.FC = () => {
     const classes = useStyles();
+    const dispatch = useDispatch();
+    const profileUsername = useSelector(profileSelectors.username);
+    const filters = useSelector(profileSelectors.filters);
 
-    const [ filters, setFilters ] = useState<SortItemsFormFiltersI>({ rarity: -1, caseId: -1, notSold: false });
+
+
     const onSelectChange = (event: React.ChangeEvent<{ name?: string; value: unknown}>) => {
         const key = event.target.name;
-        setFilters({
+        const newFilters: SortItemsFormFiltersI = {
             ...filters,
             [key!]: event.target.value
-        });
+        };
+        dispatch(profileActions.setFiltersAC(newFilters));
+        dispatch(resetDropItemsTC(profileUsername, newFilters));
     }
 
     const onNotSoldCheckboxChange: React.FormEventHandler = (event) => {
-        setFilters({
+        const newFilters: SortItemsFormFiltersI = {
             ...filters,
             notSold: !filters.notSold
-        });
+        };
+        dispatch(profileActions.setFiltersAC(newFilters));
+        dispatch(resetDropItemsTC(profileUsername, newFilters));
     }
+
+
 
     return <FormGroup row className={classes.formContainer} >
         <FormControl className={classes.selectContainer}>

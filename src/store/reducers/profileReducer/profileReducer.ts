@@ -1,5 +1,5 @@
-import { DropItemI } from './profileTypes';
-import { SET_EXISTS, SET_PROFILE_INFO, SET_DROPS, SET_ITEM_SOLD, ADD_MONEY, APPEND_DROPS, SET_LODAING_DROPS, SET_NO_MORE_DROPS, SET_PAGE, ProfileActionsType } from './profileActions';
+import { DropItemI, SortItemsFormFiltersI } from './profileTypes';
+import { SET_EXISTS, SET_PROFILE_INFO, SET_DROPS, SET_ITEM_SOLD, ADD_MONEY, APPEND_DROPS, SET_LODAING_DROPS, SET_NO_MORE_DROPS, SET_PAGE, ProfileActionsType, SET_FILTERS } from './profileActions';
 
 const initialState = {
     exists: false,
@@ -9,7 +9,12 @@ const initialState = {
     page: 1 as number,
     drops: [] as Array<DropItemI>,
     loadingDrops: false as boolean,
-    noMoreDrops: false as boolean
+    noMoreDrops: false as boolean,
+    filters: {
+        caseId: -1,
+        rarity: -1,
+        notSold: false
+    } as SortItemsFormFiltersI
 }
 
 export type ProfileStateI = typeof initialState;
@@ -71,6 +76,11 @@ const profileReducer = (state = initialState, action: ProfileActionsType): Profi
             return {
                 ...state,
                 page: action.value
+            }
+        case SET_FILTERS:
+            return {
+                ...state,
+                filters: action.newFilters //Check if the request is sent more than once!!!!
             }
         default:
             return state;

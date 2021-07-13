@@ -8,5 +8,6 @@ export const profileSelectors = {
     drops: ({ profile: { drops } }: RootState) => drops,
     loadingDrops: ({ profile: { loadingDrops } }: RootState) => loadingDrops,
     page: ({ profile: { page } }: RootState) => page,
-    noMoreDrops: ({ profile: { noMoreDrops } }: RootState) => noMoreDrops
+    noMoreDrops: ({ profile: { noMoreDrops } }: RootState) => noMoreDrops,
+    filters: ({ profile: { filters } }: RootState) => filters
 }

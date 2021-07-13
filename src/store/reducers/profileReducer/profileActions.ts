@@ -1,7 +1,7 @@
 import { InferActionTypes } from './../../store';
 import { profileAPI } from './../../../api/api';
 import { ThunkAction } from 'redux-thunk';
-import { DropItemI } from './profileTypes';
+import { DropItemI, SortItemsFormFiltersI } from './profileTypes';
 import { RootState } from '../../store';
 
 export const 
@@ -13,7 +13,8 @@ export const
     ADD_MONEY = 'PROFILE/ADD_MONEY',
     SET_LODAING_DROPS = 'SET_LODAING_DROPS',
     SET_NO_MORE_DROPS = 'SET_NO_MORE_DROPS',
-    SET_PAGE = 'SET_PAGE';
+    SET_PAGE = 'SET_PAGE',
+    SET_FILTERS = 'SET_FILTERS';
 
 export const profileActions = {
     setProfileInfoAC:(username: string, balance?: number, myProfile?: boolean) => ({ type: SET_PROFILE_INFO, payload: { username, balance, myProfile } } as const),
@@ -25,6 +26,7 @@ export const profileActions = {
     setLoadingDropsAC:(value: boolean) => ({ type: SET_LODAING_DROPS, value } as const),
     setNoMoreDropsAC:(value: boolean) => ({ type: SET_NO_MORE_DROPS, value } as const),
     setPageAC:(value: number) => ({ type: SET_PAGE, value } as const),
+    setFiltersAC: (newFilters: SortItemsFormFiltersI) => ({ type: SET_FILTERS, newFilters } as const)
 }
 export type ProfileActionsType = InferActionTypes<typeof profileActions>
 
@@ -54,11 +56,11 @@ export const sellItemTC = (rowid: number): ThunkAction<void, RootState, unknown,
     dispatch(profileActions.addMoneyAC(price!));
 }
 
-export const showMoreTC = (username: string, page: number): ThunkAction<void, RootState, unknown, ProfileActionsType> => async dispatch => {
+export const showMoreTC = (username: string, page: number, { caseId, rarity, notSold }: SortItemsFormFiltersI): ThunkAction<void, RootState, unknown, ProfileActionsType> => async dispatch => {
     dispatch(profileActions.setLoadingDropsAC(true));
     let newDrops: Array<DropItemI> = [];
     if(page) {
-        newDrops = await profileAPI.drops(username, page+1);
+        newDrops = await profileAPI.drops(username, page+1, caseId, rarity, notSold);
         if(newDrops.length === 0) {
             dispatch(profileActions.setNoMoreDropsAC(true));
             dispatch(profileActions.setLoadingDropsAC(false));
@@ -77,4 +79,10 @@ export const addBalanceTC = (): ThunkAction<void, RootState, unknown, ProfileAct
     } else {
         alert(error);
     }
+}
+
+export const resetDropItemsTC = (username: string, { caseId, rarity, notSold }: SortItemsFormFiltersI): ThunkAction<void, RootState, unknown, ProfileActionsType> => async dispatch => {
+    dispatch(profileActions.setPageAC(1));
+    const newDrops = await profileAPI.drops(username, 1, caseId, rarity, notSold);
+    dispatch(profileActions.setDropsAC(newDrops));
 }
