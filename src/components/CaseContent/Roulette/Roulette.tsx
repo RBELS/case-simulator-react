@@ -36,7 +36,7 @@ class Roulette extends Component<PropsI, RouletteState> {
         super(props);
         this.rouletteRef = React.createRef();
         this.scroll = 0;
-        this.scrollSpeed = 40;
+        this.scrollSpeed = 40.2;
     }
 
     state = {
@@ -63,6 +63,7 @@ class Roulette extends Component<PropsI, RouletteState> {
 
     componentDidMount() {
         const { items, drop } = this.props;
+        const move = Math.random()*156;
         let newItems: Array<CaseContentItemI> = Array<CaseContentItemI>();
         for(let i = 0;i < 65;i++) {
             const random = Math.floor(Math.random() * items.length);
@@ -84,7 +85,7 @@ class Roulette extends Component<PropsI, RouletteState> {
             this.scroll+=this.scrollSpeed;
             this.scrollSpeed -= client >= 800 ? 0.1 : 0.094;
 
-            if(client && (this.scroll + client / 2 >= 8628 || this.scrollSpeed <= 0)) {
+            if(client && (this.scroll + client / 2 >= 8550+move || this.scrollSpeed <= 0)) {
                 this.endOpening(true);
             }
         }, 10);
@@ -102,7 +103,7 @@ class Roulette extends Component<PropsI, RouletteState> {
             <Card ref={this.rouletteRef} className={classes.roulette}>
                 {stateItems.map((i, index) => <RouletteItem {...i} key={index} />)}
             </Card>
-            <img className={classes.cursor} src='https://cdn4.iconfinder.com/data/icons/geomicons/32/672416-triangle-up-512.png' />
+            <img className={classes.cursor} src='http://localhost:5001/public/img/General/pointer.png' />
         </>
     }
 }

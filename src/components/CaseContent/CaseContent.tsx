@@ -38,14 +38,10 @@ const useStyles = makeStyles({
     }
 });
 
-interface CaseContentParamsI {
-    caseid: string
-}
-
 const CaseContent: React.FC = ({  }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const { caseid } = useParams<CaseContentParamsI>();
+    const { caseid } = useParams();
 
     const name = useSelector(caseContentSelectors.name),
         avatar = useSelector(caseContentSelectors.avatar),
@@ -61,15 +57,19 @@ const CaseContent: React.FC = ({  }) => {
     const openText = opening ? 'Opening...' : openError ? openError : `Open: ${price} bucks`;
 
     useEffect(() => {
-        dispatch(setCaseContentTC(caseid));
+        if(caseid) {
+            dispatch(setCaseContentTC(caseid));
 
-        return () => {
-            dispatch(caseContentActions.setOpenErrorAC(''));
+            return () => {
+                dispatch(caseContentActions.setOpenErrorAC(''));
+            }
         }
     }, []);
 
     const handleOpen = (event?: any) => {
-        dispatch(openCaseTC(caseid));
+        if(caseid) {
+            dispatch(openCaseTC(caseid));
+        }
     }
 
     const handleShowDrop = (show?: boolean) => {

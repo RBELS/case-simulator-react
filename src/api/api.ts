@@ -1,14 +1,14 @@
 import { SellItemResponse } from './../store/reducers/profileReducer/profileTypes';
 import { StatusI, GetUsernameStatusI, UsernameValidateStatusI, AddBalanceStatusI } from './apiTypes';
-import { CaseContentItemI, OpenCaseResponse, CaseContentResponse } from './../store/reducers/caseContentReducer/caseContentTypes';
+import { OpenCaseResponse, CaseContentResponse } from './../store/reducers/caseContentReducer/caseContentTypes';
 import { CaseI } from './../store/reducers/mainContentReducer/mainContentTypes';
 import Axios, { AxiosPromise } from "axios";
 import { HeaderItemI } from '../store/reducers/headerReducer/headerTypes';
 import { ProfileInfoI, DropItemI } from '../store/reducers/profileReducer/profileTypes';
-import { CaseContentStateI } from '../store/reducers/caseContentReducer/caseContentReducer';
 
 const instance = Axios.create({
-    baseURL: "http://192.168.1.34:5000/",
+    // baseURL: "http://192.168.1.34:5000/",
+    baseURL: "http://localhost:5001/",
     withCredentials: true
 });
 

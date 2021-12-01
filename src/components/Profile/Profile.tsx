@@ -40,17 +40,13 @@ const useStyles = makeStyles({
     }
 });
 
-interface ProfileParamsI {
-    username: string
-}
-
 interface PropsI {
 
 }
 
 const Profile: React.FC<PropsI> = ({  }) => {
     const classes = useStyles();
-    const { username } = useParams<ProfileParamsI>();
+    const { username } = useParams();
     const dispatch = useDispatch();
 
     const exists = useSelector(profileSelectors.exists);
@@ -65,7 +61,9 @@ const Profile: React.FC<PropsI> = ({  }) => {
     const filters = useSelector(profileSelectors.filters);
 
     useEffect(() => {
-        dispatch(setProfileInfoTC(username));
+        if(username) {
+            dispatch(setProfileInfoTC(username));
+        }
     }, [username]);
 
     const handleShowMore = () => {

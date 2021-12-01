@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import './App.css';
 import Header from './components/Header/Header';
 import Content from './components/Content/Content';
-import { Switch, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import CaseContent from './components/CaseContent/CaseContent';
 import LoginPage from './components/LoginPage/LoginPage';
 import { connect } from 'react-redux';
@@ -20,19 +20,19 @@ interface PropsI {
 const App = ({ inited, initApp }: PropsI) => {
     useEffect(() => {
         initApp();
-    }, []);
+    });
 
     return inited ?
     <>
         <Header />
 
-        <Switch>
-            <Route exact path='/' render={() => <Content />} />
-            <Route path='/case/:caseid?' render={() => <CaseContent />} />
-            <Route exact path='/login' render={() => <LoginPage />} />
-            <Route exact path='/register' render={() => <RegisterPage />} />
-            <Route path='/profile/:username' render={() => <Profile />} />
-        </Switch>
+        <Routes>
+            <Route path='/' element={<Content />} />
+            <Route  path='/case/:caseid'  element={<CaseContent />} />
+            <Route path='/login' element={<LoginPage />} />
+            <Route path='/register' element={<RegisterPage />} />
+            <Route path='/profile/:username' element={<Profile />} />
+        </Routes>
     </>
     :
     <InitializingComponent />
