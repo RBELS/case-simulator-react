@@ -1,5 +1,5 @@
 import { FormControl, FormGroup, InputLabel, makeStyles, MenuItem, Select, Checkbox, FormControlLabel } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { profileActions, resetDropItemsTC } from '../../../store/reducers/profileReducer/profileActions';
 import { profileSelectors } from '../../../store/reducers/profileReducer/profileSelectors';
@@ -54,6 +54,15 @@ const SortItemsForm: React.FC = () => {
         dispatch(profileActions.setFiltersAC(newFilters));
         dispatch(resetDropItemsTC(profileUsername, newFilters));
     }
+
+    useEffect(() => {
+        dispatch(profileActions.setNoMoreDropsAC(false));
+        console.log('filters changed')
+    }, [filters])
+
+    useEffect(() => {
+        dispatch(profileActions.resetFiltersAC());
+    }, [])
 
 
 

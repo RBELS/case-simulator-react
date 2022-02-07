@@ -55,7 +55,6 @@ const Profile: React.FC<PropsI> = ({  }) => {
     const myProfile = useSelector(profileSelectors.myProfile);
     const drops = useSelector(profileSelectors.drops);
     const lodaingDrops = useSelector(profileSelectors.loadingDrops);
-    const page = useSelector(profileSelectors.page);
     const noMoreDrops = useSelector(profileSelectors.noMoreDrops);
 
     const filters = useSelector(profileSelectors.filters);
@@ -67,7 +66,7 @@ const Profile: React.FC<PropsI> = ({  }) => {
     }, [username]);
 
     const handleShowMore = () => {
-        dispatch(showMoreTC(usernameStore, page, filters));
+        dispatch(showMoreTC(usernameStore, drops.length === 0 ? -1 : drops[drops.length-1].rowid, filters));
     }
 
     const onAddButtonClick = () => {

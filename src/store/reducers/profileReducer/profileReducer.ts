@@ -1,12 +1,11 @@
 import { DropItemI, SortItemsFormFiltersI } from './profileTypes';
-import { SET_EXISTS, SET_PROFILE_INFO, SET_DROPS, SET_ITEM_SOLD, ADD_MONEY, APPEND_DROPS, SET_LODAING_DROPS, SET_NO_MORE_DROPS, SET_PAGE, ProfileActionsType, SET_FILTERS } from './profileActions';
+import { SET_EXISTS, SET_PROFILE_INFO, SET_DROPS, SET_ITEM_SOLD, ADD_MONEY, APPEND_DROPS, SET_LODAING_DROPS, SET_NO_MORE_DROPS, ProfileActionsType, SET_FILTERS, RESET_FILTERS } from './profileActions';
 
 const initialState = {
     exists: false,
     username: '' as string,
     balance: undefined as number | undefined,
     myProfile: undefined as boolean | undefined,
-    page: 1 as number,
     drops: [] as Array<DropItemI>,
     loadingDrops: false as boolean,
     noMoreDrops: false as boolean,
@@ -34,7 +33,6 @@ const profileReducer = (state = initialState, action: ProfileActionsType): Profi
         case SET_DROPS:
             return {
                 ...state,
-                page: 1,
                 drops: action.drops
             }
         case APPEND_DROPS:
@@ -52,11 +50,6 @@ const profileReducer = (state = initialState, action: ProfileActionsType): Profi
                     drop
                 })
             }
-        // case ADD_MONEY:
-        //     return {
-        //         ...state,
-        //         balance: (state.balance && action.value) ? state.balance  + action.value : undefined
-        //     }
         case ADD_MONEY:
             return {
                 ...state,
@@ -72,15 +65,19 @@ const profileReducer = (state = initialState, action: ProfileActionsType): Profi
                 ...state,
                 noMoreDrops: action.value
             }
-        case SET_PAGE:
-            return {
-                ...state,
-                page: action.value
-            }
         case SET_FILTERS:
             return {
                 ...state,
                 filters: action.newFilters //Check if the request is sent more than once!!!!
+            }
+        case RESET_FILTERS:
+            return {
+                ...state,
+                filters: {
+                    caseId: -1,
+                    rarity: -1,
+                    notSold: false
+                }
             }
         default:
             return state;

@@ -28,8 +28,8 @@ export const headerAPI = {
 }
 export const profileAPI = {
     info: (username: string): Promise<ProfileInfoI> => instance.get(`profile/info/${username}`).then(res => res.data),
-    drops: (username: string | null, page: number, caseId?: number, rarity?: number, notSold?: boolean): Promise<Array<DropItemI>> => 
-                instance.get(`profile/drops/${username}/${page}?caseId=${caseId === -1 ? '' : caseId}&rarity=${rarity === -1 ? '' : rarity}&notSold=${notSold}`)
+    drops: (username: string | null, caseId?: number, rarity?: number, notSold?: boolean, lastRowId?: number): Promise<Array<DropItemI>> => 
+                instance.get(`profile/drops/${username}?caseId=${caseId === -1 ? '' : caseId}&rarity=${rarity === -1 ? '' : rarity}&notSold=${notSold}&lastRowid=${lastRowId}`)
                 .then(res => res.data),
     sellItem: (rowid: number): Promise<SellItemResponse> => instance.post(`items/sell`, { rowid }).then(res => res.data),
     addBalance: (): Promise<AddBalanceStatusI> => instance.post('profile/balance/').then(res => res.data)
